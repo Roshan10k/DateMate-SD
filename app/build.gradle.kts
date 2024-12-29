@@ -6,6 +6,10 @@ plugins {
 android {
     namespace = "com.example.datemate_sd"
     compileSdk = 35
+<<<<<<< HEAD
+=======
+
+>>>>>>> dc4d6d5e87abbe7c5ff8501e6e91137de9ce5b35
 
     defaultConfig {
         applicationId = "com.example.datemate_sd"
