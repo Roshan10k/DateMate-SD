@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "com.example.datemate_sd"
     compileSdk = 35
-
+origin
     defaultConfig {
         applicationId = "com.example.datemate_sd"
         minSdk = 27
