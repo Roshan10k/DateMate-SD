@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-<<<<<<< HEAD
+
         android:theme="@style/Theme.AppCompat"
         tools:targetApi="31">
         <activity
@@ -25,11 +25,15 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
-=======
-        android:theme="@style/Theme.DateMateSD"
-        tools:targetApi="31" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
         <activity
-            android:name=".ProfilePageActivity"
+            android:name=".ui.activity.ProfilePageActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,16 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" >
->>>>>>> dc4d6d5e87abbe7c5ff8501e6e91137de9ce5b35
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
