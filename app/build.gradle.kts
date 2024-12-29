@@ -7,6 +7,9 @@ android {
     namespace = "com.example.datemate_sd"
     compileSdk = 35
 
+
+
+
     defaultConfig {
         applicationId = "com.example.datemate_sd"
         minSdk = 27
