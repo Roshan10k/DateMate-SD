@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1F1216"
+    tools:context="ProfilePageActivity">
+
+    <!-- ScrollView to make everything scrollable -->
+    <android.widget.ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/image1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1F1216"
+            tools:context="ProfilePageActivity">
+
+
+
+
+            <!-- Profile Picture -->
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sampleperson1"
+               
+
+                />
+
+            <!-- Name -->
+
+            <!-- Profession -->
+
+            <!-- About Section -->
+
+            <TextView
+                android:id="@+id/name_text"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:textAlignment="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="4dp"
+                android:text="Kiara Advani"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+            <TextView
+                android:id="@+id/text_profession"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textAlignment="center"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:text="Actress"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_text" />
+
+            <TextView
+                android:id="@+id/about_label"
+                android:layout_width="108dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="40dp"
+                android:text="About"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_profession" />
+
+            <TextView
+                android:id="@+id/about_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:ellipsize="end"
+                android:maxLines="4"
+
+                android:text="@string/Bio"
+                android:textColor="#BDBDBD"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_label" />
+
+            <TextView
+                android:id="@+id/read_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Read More"
+                android:textColor="#E91E63"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_text" />
+
+            <!-- Interests Section -->
+
+            <!-- Gallery Section -->
+            <TextView
+                android:id="@+id/interests_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="36dp"
+                android:text="Interests"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/read_more" />
+
+            <GridLayout
+                android:id="@+id/interests_grid"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:columnCount="3"
+                android:rowCount="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/interests_label">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="🎵 Music"
+                    android:textColor="#BDBDBD"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="📚 Reading"
+                    android:textColor="#BDBDBD"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="✈️ Traveling"
+                    android:textColor="#BDBDBD"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="📸 Photography"
+
+                    android:textColor="#BDBDBD"
+                    android:textSize="20sp" />
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/gallery_label"
+                android:layout_width="116dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="32dp"
+                android:text="Gallery"
+                android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
+
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/interests_grid" />
+
+            <GridLayout
+                android:id="@+id/gallery_grid"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginStart="2dp"
+
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
+                android:columnCount="2"
+                android:rowCount="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gallery_label">
+
+                <ImageView
+                    android:layout_width="225dp"
+                    android:layout_height="240dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_margin="8dp"
+                    android:background="#3C3C3C"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <ImageView
+                    android:layout_width="225dp"
+                    android:layout_height="240dp"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:layout_margin="8dp"
+                    android:background="#3C3C3C"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <ImageView
+                    android:layout_width="225dp"
+                    android:layout_height="240dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_margin="8dp"
+                    android:background="#3C3C3C"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <ImageView
+                    android:layout_width="225dp"
+                    android:layout_height="240dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_margin="8dp"
+                    android:background="#3C3C3C"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="480dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:text=""
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_profession" />
+
+            <TextView
+                android:id="@+id/textView3"
+
+                android:layout_width="480dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/white"
+                android:text=""
+                app:layout_constraintBottom_toTopOf="@+id/interests_label"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+
+                android:layout_width="480dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:text=""
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/interests_grid" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </android.widget.ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
