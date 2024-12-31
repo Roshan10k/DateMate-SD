@@ -33,7 +33,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".ui.activity.EmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.SignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
