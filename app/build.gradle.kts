@@ -4,6 +4,10 @@ plugins {
 }
 
 android {
+
+    buildFeatures{
+        viewBinding = true
+    }
     namespace = "com.example.datemate_sd"
     compileSdk = 35
 
