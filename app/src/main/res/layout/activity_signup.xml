@@ -76,7 +76,7 @@
         android:background="@drawable/custum_input"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:hint="Repeat Password"
+        android:hint="Confirm Password"
         android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
