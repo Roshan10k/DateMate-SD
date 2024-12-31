@@ -55,6 +55,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/custum_input"
+        android:drawableStart="@drawable/custom_lock"
         android:drawablePadding="12dp"
         android:ems="10"
         android:hint="Password"
@@ -74,6 +75,8 @@
 
         android:layout_marginBottom="24dp"
         android:background="@drawable/custum_input"
+        android:drawableStart="@drawable/custom_lock"
+
         android:drawablePadding="12dp"
         android:ems="10"
         android:hint="Confirm Password"
