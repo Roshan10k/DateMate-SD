@@ -46,7 +46,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/sampleperson1"
-                android:background="@drawable/shape"
+                android:background="@drawable/bottom_rounded_shape"
                 android:clipToOutline="true"
                 android:scaleType="centerCrop" />
 
