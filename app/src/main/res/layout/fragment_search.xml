@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.SearchFragment">
 
@@ -10,16 +11,19 @@
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="80dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/custum_input"
+        android:layout_marginEnd="10dp"
+        app:iconifiedByDefault="false"
+        android:background="@drawable/search_custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/filterIcon"
-        android:layout_width="54dp"
-        android:layout_height="62dp"
+        android:layout_width="48dp"
+        android:layout_height="47dp"
         android:layout_marginEnd="30dp"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="Filter Icon"
