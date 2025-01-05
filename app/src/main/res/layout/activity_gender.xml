@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="@color/background"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.activity.GenderActivity">
 
     <ImageView
@@ -24,10 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="28dp"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:textColor="@color/white"
         android:text="Select Gender"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backArrow" />
 
@@ -63,33 +63,36 @@
         android:id="@+id/imageMale"
         android:layout_width="121dp"
         android:layout_height="121dp"
-        android:layout_marginStart="132dp"
         android:layout_marginTop="88dp"
         android:background="@drawable/button_bg"
+        android:src="@drawable/baseline_male_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subTitle"
-        android:src="@drawable/baseline_male_24" />
+        app:layout_constraintTop_toBottomOf="@+id/subTitle" />
 
     <ImageView
         android:id="@+id/imageFemale"
         android:layout_width="121dp"
         android:layout_height="121dp"
-        android:layout_marginStart="132dp"
         android:layout_marginTop="88dp"
         android:background="@drawable/button_bg"
+        android:src="@drawable/baseline_female_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:src="@drawable/baseline_female_24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
         android:layout_marginTop="10dp"
         android:text="Male"
         android:textColor="@color/white"
         android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageMale" />
 
@@ -97,11 +100,12 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
         android:layout_marginTop="10dp"
         android:text="Female"
         android:textColor="@color/white"
         android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageFemale" />
 
