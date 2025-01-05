@@ -47,7 +47,6 @@ class ProfilePageActivity : AppCompatActivity() {
 
     private fun toggleTextExpansion() {
         if (isExpanded) {
-            // Collapse text to show only 2 lines
             aboutTextView.maxLines = 4
             aboutTextView.ellipsize = TextUtils.TruncateAt.END
             readMoreTextView.text = getString(R.string.read_more) // "Read More"

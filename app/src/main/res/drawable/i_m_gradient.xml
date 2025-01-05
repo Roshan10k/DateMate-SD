@@ -1,0 +1,19 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="80"
+        android:endColor="@color/endpink"
+        android:startColor="@color/startpink"
+        android:type="linear" />
+    <padding android:left="12dp"/>
+    <padding android:right="12dp"/>
+    <padding android:top="12dp"/>
+    <padding android:bottom="12dp"/>
+
+    <corners
+        android:radius="15dp"/>
+
+
+
+
+
+</shape>
