@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/about_text"
                 android:layout_width="398dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
 
 
@@ -107,35 +107,22 @@
                 android:text="@string/Bio"
                 android:textColor="#BDBDBD"
                 android:textSize="25sp"
+                android:lines="4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/about_label" />
-
-            <TextView
-                android:id="@+id/read_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="52dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="Read More"
-                android:textColor="#E91E63"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/about_text" />
 
             <TextView
                 android:id="@+id/interests_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="21dp"
                 android:text="Interests"
                 android:textColor="#FFFFFF"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/read_more" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <GridLayout
                 android:id="@+id/interests_grid"
@@ -337,11 +324,13 @@
                 android:layout_width="480dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="41dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/white"
                 android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/interests_label"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_text" />
 
             <TextView
                 android:id="@+id/textView4"
