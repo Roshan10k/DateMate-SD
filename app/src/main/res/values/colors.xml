@@ -6,4 +6,5 @@
     <color name="startpink">#FF84A7</color>
     <color name="endpink">#E03368</color>
     <color name="grey">#999999</color>
+    <color name="chatinput">#454242</color>
 </resources>
