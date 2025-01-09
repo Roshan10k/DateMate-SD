@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/endpink" /> <!-- Replace with your desired color -->
+    <corners android:radius="20dp" /> <!-- Set to half of width/height (20dp for 40dp size) -->
+</shape>
