@@ -14,8 +14,8 @@
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".ui.activity.ForgetActivity"
-        tools:layout_editor_absoluteX="-147dp"
-        tools:layout_editor_absoluteY="304dp">
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <ImageButton
             android:id="@+id/imageButton"
