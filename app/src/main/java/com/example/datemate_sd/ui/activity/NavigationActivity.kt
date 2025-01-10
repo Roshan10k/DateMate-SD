@@ -25,6 +25,8 @@ class NavigationActivity : AppCompatActivity() {
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        replaceFragment(DashboardFragment())
+
         binding.navigationView.setOnItemSelectedListener{menu ->
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(DashboardFragment())
