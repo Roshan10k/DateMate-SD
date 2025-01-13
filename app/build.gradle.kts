@@ -5,15 +5,11 @@ plugins {
 }
 
 android {
-
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
     namespace = "com.example.datemate_sd"
     compileSdk = 35
-
-
-
 
     defaultConfig {
         applicationId = "com.example.datemate_sd"
@@ -34,16 +30,19 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
+    // Core dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material) // For Material Design components like RangeSlider
@@ -55,6 +54,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.airbnb.android:lottie:6.6.1")
 
-    // Additional dependencies for Material Components or UI enhancements (if needed)
-    implementation("com.google.android.material:material:1.9.0")
+
+
 }

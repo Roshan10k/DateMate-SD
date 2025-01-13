@@ -10,6 +10,7 @@ import com.example.datemate_sd.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import androidx.fragment.app.Fragment
 
+
 class SearchFragment : Fragment() {
 
     override fun onCreateView(
