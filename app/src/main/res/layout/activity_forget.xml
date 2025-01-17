@@ -9,7 +9,7 @@
     tools:context=".ui.activity.ForgetActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/forgetBackArrow"
         android:layout_width="26dp"
         android:layout_height="31dp"
         android:layout_marginStart="20dp"
@@ -35,7 +35,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/forgetBackArrow" />
 
     <TextView
         android:id="@+id/textView6"
