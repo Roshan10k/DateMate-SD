@@ -26,7 +26,6 @@ class NavigationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         replaceFragment(DashboardFragment())
-
         binding.navigationView.setOnItemSelectedListener{menu ->
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(DashboardFragment())
@@ -35,6 +34,7 @@ class NavigationActivity : AppCompatActivity() {
             }
             true
         }
+
        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
