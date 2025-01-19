@@ -8,7 +8,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityNavigationBinding
 import com.example.datemate_sd.ui.fragment.DashboardFragment
-import com.example.datemate_sd.ui.fragment.ProfileFragment
 import com.example.datemate_sd.ui.fragment.SearchFragment
 
 class NavigationActivity : AppCompatActivity() {

@@ -13,7 +13,7 @@
       </SelectionState>
       <SelectionState runConfigName="NavigationActivity">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-01-08T12:10:24.241704400Z">
+        <DropdownSelection timestamp="2025-01-09T10:10:43.063681500Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\lenovo\.android\avd\Pixel_9_Pro_API_35.avd" />
