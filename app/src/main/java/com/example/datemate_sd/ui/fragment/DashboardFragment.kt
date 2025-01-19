@@ -1,14 +1,17 @@
 package com.example.datemate_sd.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.Adapter.DashboardRecyclerAdapter
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.FragmentDashboardBinding
+import com.example.datemate_sd.ui.activity.NotificationActivity
 
 class DashboardFragment : Fragment() {
 
@@ -31,18 +34,18 @@ class DashboardFragment : Fragment() {
     )
 
     private val namelist = arrayListOf(
-        "Kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
-        "kiara Adwani",
+        "Kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
+        "kiara",
     )
 
     private val agelist = arrayListOf(
@@ -99,23 +102,12 @@ class DashboardFragment : Fragment() {
             adapter = DashboardRecyclerAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
         }
+
+        binding.notificationIcon.setOnClickListener{
+            val intent = Intent(requireContext(), NotificationActivity::class.java)
+            startActivity((intent))
+        }
+
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    companion object {
-        private const val ARG_PARAM1 = "param1"
-        private const val ARG_PARAM2 = "param2"
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashboardFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

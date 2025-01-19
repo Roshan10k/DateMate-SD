@@ -97,14 +97,14 @@
 
         android:text="sign up"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/SignupBtn"
+        app:layout_constraintBottom_toTopOf="@+id/BackTOLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordView2" />
 
     <Button
-        android:id="@+id/SignupBtn"
+        android:id="@+id/BackTOLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="82dp"

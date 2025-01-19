@@ -22,6 +22,7 @@ class DashboardRecyclerAdapter(
         val name: TextView = itemView.findViewById(R.id.name)
         val age: TextView = itemView.findViewById(R.id.age)
         val profession: TextView = itemView.findViewById(R.id.profession)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DasboardViewHolder {
