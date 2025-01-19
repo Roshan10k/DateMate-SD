@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "47805636593",
+    "firebase_url": "https://datemate-6978d-default-rtdb.firebaseio.com",
+    "project_id": "datemate-6978d",
+    "storage_bucket": "datemate-6978d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47805636593:android:636d338088b71fc1e8ee50",
+        "android_client_info": {
+          "package_name": "com.example.datemate_sd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvt-ve4DXEY-7tNem7o7SO0jVt9mc_nvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
