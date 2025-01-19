@@ -35,6 +35,42 @@
         android:layout_marginBottom="8dp" />
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Age Range Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age Range"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/ageRangeSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:values="@array/default_values"
+            app:valueFrom="18"
+            app:valueTo="60"
+            app:stepSize="1" />
+
+        <TextView
+            android:id="@+id/ageRangeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected Age Range: 18 - 60"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
