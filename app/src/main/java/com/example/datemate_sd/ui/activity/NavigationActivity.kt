@@ -8,7 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityNavigationBinding
 import com.example.datemate_sd.ui.fragment.DashboardFragment
+import com.example.datemate_sd.ui.fragment.MessageFragment
 import com.example.datemate_sd.ui.fragment.SearchFragment
+import com.example.datemate_sd.ui.fragment.SettingFragment
 
 class NavigationActivity : AppCompatActivity() {
     lateinit var binding:  ActivityNavigationBinding
@@ -24,11 +26,13 @@ class NavigationActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        replaceFragment(DashboardFragment())
         binding.navigationView.setOnItemSelectedListener{menu ->
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(DashboardFragment())
                     R.id.navSearch -> replaceFragment(SearchFragment())
+                        R.id.navMessage->replaceFragment(MessageFragment())
+                            R.id.navSetting->replaceFragment(SettingFragment())
                         else -> {}
             }
             true

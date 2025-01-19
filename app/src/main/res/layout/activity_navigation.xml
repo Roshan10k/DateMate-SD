@@ -19,7 +19,6 @@
         android:background="@color/background"
         app:itemIconTint="@color/navigation_item_color"
         app:itemTextColor="@color/navigation_item_color"
-
         />
 
     <FrameLayout
