@@ -10,9 +10,7 @@ import com.example.datemate_sd.R
 
 class ProfilePageActivity : AppCompatActivity() {
 
-    private lateinit var aboutTextView: TextView
-    private lateinit var readMoreTextView: TextView
-    private var isExpanded = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,39 +21,7 @@ class ProfilePageActivity : AppCompatActivity() {
             view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }}
 
 
-        aboutTextView = findViewById(R.id.about_text)
-        readMoreTextView = findViewById(R.id.read_more)
 
-        // Check if "Read More" should be shown based on text line count
-        aboutTextView.viewTreeObserver.addOnGlobalLayoutListener {
-            if (aboutTextView.lineCount <= 3) {
-                // Hide "Read More" if text fits within 2 lines
-                readMoreTextView.visibility = TextView.GONE
-            } else {
-                // Show "Read More" if text exceeds 2 lines
-                readMoreTextView.visibility = TextView.VISIBLE
-            }
-        }
-
-        // Handle "Read More" click event
-        readMoreTextView.setOnClickListener {
-            toggleTextExpansion()
-        }
-    }
-
-    private fun toggleTextExpansion() {
-        if (isExpanded) {
-            aboutTextView.maxLines = 4
-            aboutTextView.ellipsize = TextUtils.TruncateAt.END
-            readMoreTextView.text = getString(R.string.read_more) // "Read More"
-        } else {
-            // Expand text to show all lines
-            aboutTextView.maxLines = Int.MAX_VALUE
-            aboutTextView.ellipsize = null
-            readMoreTextView.text = getString(R.string.read_less) // "Read Less"
-        }
-        isExpanded = !isExpanded
-    }
-}

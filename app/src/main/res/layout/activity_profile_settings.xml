@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1F1216">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Profile Image -->
+
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_margin="1dp"
+                android:src="@drawable/sampleperson1"
+                android:background="@drawable/bottom_rounded_shape"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <!-- Name -->
+
+            <Button
+                android:id="@+id/change_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@id/profile_image"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/gradient"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Change Image"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+            <!-- Username -->
+            <EditText
+                android:id="@+id/name_edit"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/button_bg"
+                android:drawableEnd="@drawable/baseline_edit_24"
+                android:hint="Enter name..."
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/name"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/change_image_button" />
+
+            <EditText
+                android:id="@+id/username_edit"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="20dp"
+                android:drawableEnd="@drawable/baseline_edit_24"
+
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/button_bg"
+                android:hint="Enter profession..."
+                android:text="@string/profession"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/name_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- About Section -->
+            <TextView
+                android:id="@+id/about_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:text="About"
+                android:drawableRight="@drawable/baseline_edit_24"
+
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/username_edit"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/about_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/button_bg"
+                android:hint="Write something about yourself..."
+                android:text="@string/Bio"
+                android:padding="10dp"
+
+                android:scrollbars="vertical"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/about_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Interests Section -->
+            <TextView
+                android:id="@+id/interests_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="20dp"
+                android:text="Interests"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/about_edit"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/select_interest_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="Please select at least 3 of the following interests"
+                android:textColor="#BDBDBD"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/interests_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <GridLayout
+                android:id="@+id/interests_grid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:columnCount="3"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/select_interest_text">
+
+                <!-- Add CheckBoxes for Interests -->
+                <CheckBox
+                    android:id="@+id/checkbox_movie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎥 Movie" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_snooker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎱 Snooker" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_books_reading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📚 Books Reading" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_swimming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏊 Swimming" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_design"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎨 Design" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_photography"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📸 Photography" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎵 Music" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_shopping"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🛍️ Shopping" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_cooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍳 Cooking" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_art"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🖌️ Art" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_traveling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✈️ Traveling" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_gaming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎮 Gaming" />
+
+            </GridLayout>
+
+            <!-- Gallery Section -->
+            <TextView
+                android:id="@+id/gallery_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="20dp"
+                android:text="Edit Gallery"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/interests_grid"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <GridLayout
+                android:id="@+id/gallery_grid"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:clipToPadding="false"
+                android:columnCount="3"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:rowCount="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gallery_label">
+
+                <!-- First Image -->
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_corner"
+
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <!-- Second Image -->
+                <ImageView
+                    android:id="@+id/image2"
+
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_corner"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <!-- Third Image -->
+                <ImageView
+                    android:id="@+id/image3"
+
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_column="2"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_corner"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <!-- Fourth Image -->
+                <ImageView
+                    android:id="@+id/image4"
+
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_row="1"
+                    android:layout_rowWeight="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_corner"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <!-- Fifth Image -->
+                <ImageView
+                    android:id="@+id/image5"
+
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_row="1"
+                    android:layout_rowWeight="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_corner"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+                <!-- Sixth Image -->
+                <ImageView
+                    android:id="@+id/image6"
+
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_row="1"
+                    android:layout_rowWeight="1"
+                    android:layout_column="2"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_corner"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sampleperson1" />
+
+            </GridLayout>
+            <!-- Select Images Button -->
+
+            <!-- Save Profile Button -->
+
+            <Button
+                android:id="@+id/save_profile_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="106dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/gradient"
+                android:text="Save Profile"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gallery_grid" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="389dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="5dp"
+                android:text="Long press to remove the images."
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gallery_grid" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

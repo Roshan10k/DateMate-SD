@@ -30,6 +30,7 @@ class NavigationActivity : AppCompatActivity() {
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(DashboardFragment())
                     R.id.navSearch -> replaceFragment(SearchFragment())
+                    R.id.navProfile -> replaceFragment(ProfileFragment())
                         else -> {}
             }
             true
