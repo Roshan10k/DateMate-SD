@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityProfileDetailsBinding
-import android.widget.Toast
 
 class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -69,6 +68,7 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     override fun onItemSelected(
         parent: AdapterView<*>?,
         view: View?,
+
         position: Int,
         id: Long
     ) {
