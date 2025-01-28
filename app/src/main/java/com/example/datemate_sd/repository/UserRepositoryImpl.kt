@@ -27,7 +27,7 @@ class UserRepositoryImpl:UserRepository {
     ) {
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
             if (it.isSuccessful){
-                callback(true,"Registration succesful",auth.currentUser?.uid.toString())
+                callback(true,"Registration successful",auth.currentUser?.uid.toString())
             }else{
                 callback(false,it.exception?.message.toString(),"")
             }
@@ -49,7 +49,13 @@ class UserRepositoryImpl:UserRepository {
         userModel: UserModel,
         callback: (Boolean, String) -> Unit
     ) {
-        TODO("Not yet implemented")
+        reference.child(userID.toString()).setValue(userModel).addOnCompleteListener {
+            if (it.isSuccessful){
+                callback(true,"Registration successful")
+            }else{
+                callback(false,it.exception?.message.toString())
+            }
+        }
     }
 
     override fun logout(callback: (Boolean, String) -> Unit) {
@@ -67,7 +73,13 @@ class UserRepositoryImpl:UserRepository {
         data: MutableMap<String, Any>,
         callback: (Boolean, String) -> Unit
     ) {
-        TODO("Not yet implemented")
+        reference.child(userId).updateChildren(data).addOnCompleteListener {
+            if (it.isSuccessful){
+                callback(true,"Profile details edited successfully")
+            }else{
+                callback(false,it.exception?.message.toString())
+            }
+        }
     }
 
     override fun getCurrentUSer(): FirebaseUser? {
