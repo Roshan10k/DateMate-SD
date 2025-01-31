@@ -103,7 +103,7 @@ class DashboardFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
         }
 
-        binding.notificationIcon.setOnClickListener{
+        binding.noti.setOnClickListener{
             val intent = Intent(requireContext(), NotificationActivity::class.java)
             startActivity((intent))
         }

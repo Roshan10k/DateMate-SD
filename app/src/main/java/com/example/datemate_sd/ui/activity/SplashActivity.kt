@@ -24,6 +24,7 @@ class SplashActivity : AppCompatActivity() {
             finish() // Close the SplashActivity so it doesn't remain in the back stack
         }, 4200)
 
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

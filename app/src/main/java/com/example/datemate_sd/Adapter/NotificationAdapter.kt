@@ -1,41 +1,40 @@
-package com.example.datemate_sd.Adapter
+package com.example.datemate_sd.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.datemate_sd.databinding.NotificationitemBinding
+import com.example.datemate_sd.R
+import com.example.datemate_sd.model.NotificationModel
 
 class NotificationAdapter(
-    val context: Context,
-    val titleList: ArrayList<String>,
-    val desList: ArrayList<String>
-): RecyclerView.Adapter<NotificationAdapter.NotificationViewholder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): NotificationViewholder {
-        val binding = NotificationitemBinding.inflate(LayoutInflater.from(context),parent,false)
-        return NotificationViewholder(binding)
+    private val context: Context,
+    private var titleList: List<String>,
+    private var desList: List<String>
+) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val title: TextView = view.findViewById(R.id.notificationTitle)
+        val description: TextView = view.findViewById(R.id.notificationDes)
     }
 
-    override fun onBindViewHolder(
-        holder: NotificationViewholder,
-        position: Int
-    ) {
-        holder.binding.notificationTitle.text = titleList[position]
-        holder.binding.NotificationDes.text = desList[position]
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.notificationitem, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return titleList.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.title.text = titleList[position]
+        holder.description.text = desList[position]
     }
 
-    class NotificationViewholder(val binding: NotificationitemBinding): RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount(): Int = titleList.size
 
+    fun updateNotifications(notifications: List<NotificationModel>) {
+        titleList = notifications.map { it.title }
+        desList = notifications.map { it.description }
+        notifyDataSetChanged()
     }
-
 }
