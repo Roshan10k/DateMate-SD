@@ -1,7 +1,7 @@
 package com.example.datemate_sd.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -9,79 +9,82 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.datemate_sd.R
+import com.example.datemate_sd.databinding.ActivityIdealMatchPageBinding
+import com.example.datemate_sd.model.UserModel
+import com.example.datemate_sd.repository.UserRepositoryImpl
+import com.example.datemate_sd.viewmodel.UserViewModel
 
 class IdealMatchPage : AppCompatActivity() {
     private var selectedOption: String? = null
+    private lateinit var binding: ActivityIdealMatchPageBinding
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var userModel: UserModel // Store the UserModel instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_ideal_match_page)
+        binding = ActivityIdealMatchPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        // Initialize repository
+        userViewModel = UserViewModel(UserRepositoryImpl())
 
-        val loveOption = findViewById<LinearLayout>(R.id.loveOption)
-        val friendsOption = findViewById<LinearLayout>(R.id.friendsOption)
-        val businessOption = findViewById<LinearLayout>(R.id.businessOption)
+        // Retrieve UserModel from the intent
+        userModel = intent.getParcelableExtra("User_Model") ?: UserModel()
 
+        // Set up click listeners for options
         resetOptionsBackground()
-        loveOption.setBackgroundResource(R.drawable.gradient)
+        binding.loveOption.setBackgroundResource(R.drawable.gradient)
         selectedOption = "Love"
 
-        loveOption.setOnClickListener {
-            handleOptionSelection("Love", loveOption, friendsOption, businessOption)
+        binding.loveOption.setOnClickListener {
+            handleOptionSelection("Love", binding.loveOption, binding.friendsOption, binding.businessOption)
         }
 
-        friendsOption.setOnClickListener {
-            handleOptionSelection("Friends", friendsOption, loveOption, businessOption)
+        binding.friendsOption.setOnClickListener {
+            handleOptionSelection("Friends", binding.friendsOption, binding.loveOption, binding.businessOption)
         }
 
-        businessOption.setOnClickListener {
-            handleOptionSelection("Business", businessOption, loveOption, friendsOption)
+        binding.businessOption.setOnClickListener {
+            handleOptionSelection("Business", binding.businessOption, binding.loveOption, binding.friendsOption)
         }
 
         // Handle continue button click
-        val continueButton = findViewById<android.widget.Button>(R.id.loginButton)
-        continueButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             if (selectedOption != null) {
-                Log.d("IdealMatchPage", "Selected Option: $selectedOption")
-                Toast.makeText(this, "Selected: $selectedOption", Toast.LENGTH_SHORT).show()
-                // detebase coding
+                saveIdealMatchToDatabase()
             } else {
                 Toast.makeText(this, "Please select an option before continuing.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    /**
-     *
-     * @param option The selected option's name.
-     * @param selectedView The selected option's view.
-     * @param otherViews The unselected option views.
-     */
-    private fun handleOptionSelection(
-        option: String,
-        selectedView: LinearLayout,
-        vararg otherViews: LinearLayout
-    ) {
+    private fun handleOptionSelection(option: String, selectedView: LinearLayout, vararg otherViews: LinearLayout) {
         selectedOption = option
         resetOptionsBackground()
         selectedView.setBackgroundResource(R.drawable.gradient)
         otherViews.forEach { it.setBackgroundResource(R.drawable.button_bg) }
     }
 
-
     private fun resetOptionsBackground() {
-        val loveOption = findViewById<LinearLayout>(R.id.loveOption)
-        val friendsOption = findViewById<LinearLayout>(R.id.friendsOption)
-        val businessOption = findViewById<LinearLayout>(R.id.businessOption)
+        binding.loveOption.setBackgroundResource(R.drawable.button_bg)
+        binding.friendsOption.setBackgroundResource(R.drawable.button_bg)
+        binding.businessOption.setBackgroundResource(R.drawable.button_bg)
+    }
 
-        loveOption.setBackgroundResource(R.drawable.button_bg)
-        friendsOption.setBackgroundResource(R.drawable.button_bg)
-        businessOption.setBackgroundResource(R.drawable.button_bg)
+    private fun saveIdealMatchToDatabase() {
+        // Update the userModel with the selected ideal match
+        userModel.idealMatch = selectedOption ?: ""
+
+        userViewModel.addUserToDatabase(userModel.UserId, userModel) { isSuccess, message ->
+            if (isSuccess) {
+                Toast.makeText(this, "User is registered successfully", Toast.LENGTH_SHORT).show()
+                // Navigate to the next activity
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            } else {
+                Toast.makeText(this, "error in registration: $message", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
