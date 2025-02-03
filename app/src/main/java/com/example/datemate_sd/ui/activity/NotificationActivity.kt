@@ -13,14 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityNotificationBinding
 import com.example.datemate_sd.ViewModel.NotificationViewModel
-import com.example.datemate_sd.adapter.NotificationAdapter
+import com.example.datemate_sd.Adapter.NotificationAdapter
 
 class NotificationActivity : AppCompatActivity() {
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var binding: ActivityNotificationBinding
-
-    lateinit var notificationAdapter: NotificationAdapter
+    private lateinit var binding: ActivityNotificationBinding
+    private lateinit var notificationAdapter: NotificationAdapter
 
     private val notificationViewModel: NotificationViewModel by viewModels()
 
@@ -29,18 +27,20 @@ class NotificationActivity : AppCompatActivity() {
         binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        recyclerView = binding.recyclerViewNotifications
+        // Initialize adapter with an empty list
+        notificationAdapter = NotificationAdapter(this, emptyList())
 
-        notificationAdapter = NotificationAdapter(this)
-        recyclerView.adapter = notificationAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewNotifications.apply {
+            adapter = notificationAdapter
+            layoutManager = LinearLayoutManager(this@NotificationActivity)
+        }
 
-        // Observer for notifications LiveData
+        // Observe notifications LiveData
         notificationViewModel.notifications.observe(this, Observer { notifications ->
             notificationAdapter.updateNotifications(notifications)
         })
 
-        // Fetch notifications for the current user (example: user ID "user_id_here")
+        // Fetch notifications for the current user (Replace with actual user ID)
         notificationViewModel.listenForNotifications("user_id_here")
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
