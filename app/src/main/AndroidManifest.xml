@@ -21,6 +21,15 @@
         </service>
 
         <activity
+            android:name=".ui.activity.ItsMatchActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.activity.BottomSheetLayout"
             android:exported="false" />
 

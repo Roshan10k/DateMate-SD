@@ -1,4 +1,4 @@
-package com.example.datemate_sd.adapter
+package com.example.datemate_sd.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,8 +11,7 @@ import com.example.datemate_sd.model.NotificationModel
 
 class NotificationAdapter(
     private val context: Context,
-    private var titleList: List<String>,
-    private var desList: List<String>
+    private var notifications: List<NotificationModel> // Single list of NotificationModel
 ) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -26,15 +25,16 @@ class NotificationAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.title.text = titleList[position]
-        holder.description.text = desList[position]
+        val notification = notifications[position]
+        holder.title.text = notification.title
+        holder.description.text = notification.description
     }
 
-    override fun getItemCount(): Int = titleList.size
+    override fun getItemCount(): Int = notifications.size
 
-    fun updateNotifications(notifications: List<NotificationModel>) {
-        titleList = notifications.map { it.title }
-        desList = notifications.map { it.description }
+    // Method to update notifications
+    fun updateNotifications(newNotifications: List<NotificationModel>) {
+        notifications = newNotifications
         notifyDataSetChanged()
     }
 }
