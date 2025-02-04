@@ -7,80 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.Adapter.DashboardRecyclerAdapter
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.FragmentDashboardBinding
+import com.example.datemate_sd.repository.UserRepositoryImpl
 import com.example.datemate_sd.ui.activity.NotificationActivity
+import com.example.datemate_sd.viewmodel.UserViewModel
 
 class DashboardFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding: FragmentDashboardBinding
 
-    private val imagelist = arrayListOf(
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-        R.drawable.sampleperson1,
-    )
-
-    private val namelist = arrayListOf(
-        "Kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-        "kiara",
-    )
-
-    private val agelist = arrayListOf(
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30",
-        "30"
-    )
-
-    private val profession = arrayListOf(
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress",
-        "Actress"
-    )
+    lateinit var userViewModel: UserViewModel
 
     private lateinit var DashboardRecyclerAdapter: DashboardRecyclerAdapter
 
@@ -88,19 +28,40 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+    ): View? {
+        binding = FragmentDashboardBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        DashboardRecyclerAdapter = DashboardRecyclerAdapter(requireContext(), imagelist, namelist, agelist,profession)
 
-        binding.recyclerView.apply {
+        var repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
+
+        DashboardRecyclerAdapter = DashboardRecyclerAdapter(requireContext(), ArrayList())
+        userViewModel.getAllUserFunc()
+
+        userViewModel.getAllUsers.observe(viewLifecycleOwner){
+            it?.let {
+                DashboardRecyclerAdapter.updateData(it)
+            }
+        }
+        binding.dashboardRecyclerView.adapter = DashboardRecyclerAdapter
+        binding.dashboardRecyclerView.apply {
             adapter = DashboardRecyclerAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
+        }
+
+
+        userViewModel.loading.observe(viewLifecycleOwner){loading->
+            if (loading){
+                binding.dashboardLoadingProgressBar.visibility = View.VISIBLE
+            }else{
+                binding.dashboardLoadingProgressBar.visibility = View.GONE
+
+            }
         }
 
         binding.noti.setOnClickListener{
