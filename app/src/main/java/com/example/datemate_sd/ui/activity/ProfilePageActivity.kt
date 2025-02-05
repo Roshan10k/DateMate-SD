@@ -3,19 +3,13 @@ package com.example.datemate_sd.ui.activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.TextUtils
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModel
 import com.example.datemate_sd.R
-import com.example.datemate_sd.databinding.ActivityForgetBinding
 import com.example.datemate_sd.databinding.ActivityProfilePageBinding
-import com.example.datemate_sd.ViewModel.NotificationViewModel
+import com.example.datemate_sd.viewmodel.NotificationViewModel
 import androidx.activity.viewModels
 class ProfilePageActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfilePageBinding

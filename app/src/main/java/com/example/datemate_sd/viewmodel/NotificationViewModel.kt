@@ -1,4 +1,4 @@
-package com.example.datemate_sd.ViewModel
+package com.example.datemate_sd.viewmodel
 
 // NotificationViewModel.kt
 

@@ -2,17 +2,15 @@ package com.example.datemate_sd.ui.activity
 
 // NotificationActivity.kt
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityNotificationBinding
-import com.example.datemate_sd.ViewModel.NotificationViewModel
+import com.example.datemate_sd.viewmodel.NotificationViewModel
 import com.example.datemate_sd.Adapter.NotificationAdapter
 
 class NotificationActivity : AppCompatActivity() {
