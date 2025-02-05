@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.R
 import com.example.datemate_sd.model.MessageModel
-import com.example.datemate_sd.ui.Adapter.Message
+
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.currentCoroutineContext
 
