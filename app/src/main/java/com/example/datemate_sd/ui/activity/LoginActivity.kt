@@ -11,12 +11,12 @@ import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityLoginBinding
 import com.example.datemate_sd.repository.UserRepositoryImpl
 import com.example.datemate_sd.viewmodel.UserViewModel
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     lateinit var  binding: ActivityLoginBinding
 
-     lateinit var  userViewModel: UserViewModel
+    lateinit var  userViewModel: UserViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -43,14 +43,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
             userViewModel.login(email, password) { success, message ->
-
                 if (success) {
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@LoginActivity,NavigationActivity::class.java)
                     startActivity(intent)
-
-
-
 
                 } else {
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()

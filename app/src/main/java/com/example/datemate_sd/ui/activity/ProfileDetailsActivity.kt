@@ -2,7 +2,9 @@ package com.example.datemate_sd.ui.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.datemate_sd.databinding.ActivityProfileDetailsBinding
 import com.example.datemate_sd.model.UserModel
 import com.example.datemate_sd.repository.UserRepositoryImpl
+import com.example.datemate_sd.utils.ImageUtils
 import com.example.datemate_sd.viewmodel.UserViewModel
+import com.squareup.picasso.Picasso
 import java.util.*
 
 class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -19,6 +23,10 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     private lateinit var userViewModel: UserViewModel
     private lateinit var userModel: UserModel // Store the UserModel instance
     private var userId: String? = null
+
+    lateinit var imageUtils: ImageUtils
+
+    var imageUri: Uri? = null
 
     private val cities = arrayOf(
         "Kathmandu", "Bhaktapur", "Lalitpur", "Pokhara",
@@ -29,6 +37,23 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         super.onCreate(savedInstanceState)
         binding = ActivityProfileDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        imageUtils = ImageUtils(this)
+        imageUtils.registerActivity { url ->
+            url.let { it ->
+                imageUri = it
+                Picasso.get().load(it).into(binding.profileImg)
+            }
+        }
+
+        binding.editBtn.setOnClickListener {
+            imageUtils.launchGallery(this)
+        }
+
+        binding.continueBtnPD.setOnClickListener {
+            uploadImage()
+        }
+
 
         // Initialize the UserRepository and ViewModel
         val repo = UserRepositoryImpl()
@@ -58,28 +83,29 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
         // Set up the continue button click listener
         binding.continueBtnPD.setOnClickListener {
-            val name = binding.nameInput.text.toString().trim()
-            val username = binding.usernameInput.text.toString().trim()
-            val phone = binding.phoneInput.text.toString().trim()
-            val dob = binding.dateInput.text.toString().trim()
-            val address = binding.addressSpinner.selectedItem.toString()
-
-            // Validate input fields
-            if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Update the UserModel with the collected data
-            userModel.name = name
-            userModel.username = username
-            userModel.phnNumber = phone
-            userModel.dateOfBirth = dob
-            userModel.address = address
-
-            val intent = Intent(this, GenderActivity::class.java)
-            intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
-            startActivity(intent)
+            uploadImage()
+//            val name = binding.nameInput.text.toString().trim()
+//            val username = binding.usernameInput.text.toString().trim()
+//            val phone = binding.phoneInput.text.toString().trim()
+//            val dob = binding.dateInput.text.toString().trim()
+//            val address = binding.addressSpinner.selectedItem.toString()
+//
+//            // Validate input fields
+//            if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()) {
+//                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
+//
+//            // Update the UserModel with the collected data
+//            userModel.name = name
+//            userModel.username = username
+//            userModel.phnNumber = phone
+//            userModel.dateOfBirth = dob
+//            userModel.address = address
+//
+//            val intent = Intent(this, GenderActivity::class.java)
+//            intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
+//            startActivity(intent)
 
             // Call the repository to save the updated UserModel
 //            userViewModel.addUserToDatabase(userId ?: "", userModel) { isSuccess, message ->
@@ -110,5 +136,67 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         Toast.makeText(this, "No city selected", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun uploadImage() {
+//        loadingUtils.show()
+        imageUri?.let { uri ->
+            userViewModel.uploadImage(this, uri) { imageUrl ->
+                Log.d("checpoirs", imageUrl.toString())
+                if (imageUrl != null) {
+                    adduser(imageUrl)
+                } else {
+                    Log.e("Upload Error", "Failed to upload image to Cloudinary")
+                }
+            }
+        }
+    }
+
+    private fun adduser(url: String) {
+//        loadingUtils.show()
+        val name = binding.nameInput.text.toString().trim()
+        val username = binding.usernameInput.text.toString().trim()
+        val phone = binding.phoneInput.text.toString().trim()
+        val dob = binding.dateInput.text.toString().trim()
+        val address = binding.addressSpinner.selectedItem.toString()
+        val imageurl = url.toString()
+        // Validate input fields
+        if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()|| imageurl.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+        }
+        // Update the UserModel with the collected data
+        userModel.name = name
+        userModel.username = username
+        userModel.phnNumber = phone
+        userModel.dateOfBirth = dob
+        userModel.address = address
+        userModel.imageurl = imageurl
+
+        val intent = Intent(this, GenderActivity::class.java)
+        intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
+        startActivity(intent)
+
+//        var model = UserModel(
+//            "",
+//            pname,
+//            pdes, price, url
+//        )
+//
+//        productViewModel.addProduct(model) { success, message ->
+//            if (success) {
+//                Toast.makeText(
+//                    this@AddProductActivity,
+//                    message, Toast.LENGTH_LONG
+//                ).show()
+//                finish()
+//                loadingUtils.dismiss()
+//            } else {
+//                Toast.makeText(
+//                    this@AddProductActivity,
+//                    message, Toast.LENGTH_LONG
+//                ).show()
+//                loadingUtils.dismiss()
+//            }
+//        }
     }
 }

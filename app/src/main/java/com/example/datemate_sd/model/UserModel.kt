@@ -14,10 +14,12 @@ data class UserModel(
     var address: String="",
     var gender: String = "",
     var interestedIn: String = "",
-    var idealMatch: String = ""
+    var idealMatch: String = "",
+    var imageurl: String = ""
 
     ):Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
@@ -44,6 +46,7 @@ data class UserModel(
         parcel.writeString(gender)
         parcel.writeString(interestedIn)
         parcel.writeString(idealMatch)
+        parcel.writeString(imageurl)
     }
 
     override fun describeContents(): Int {
