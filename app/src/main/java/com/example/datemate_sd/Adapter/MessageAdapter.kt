@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.R
 
-data class Message(val name: String, val message: String, val time: String, val count: Int)
+class Message(val name: String, val message: String, val time: String, val count: Int)
 
 class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
