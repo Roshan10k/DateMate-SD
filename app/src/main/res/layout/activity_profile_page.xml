@@ -57,7 +57,7 @@
                 android:layout_height="43dp"
                 android:layout_marginStart="20dp"
 
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="76dp"
                 android:text="Kiara Advani"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
@@ -343,6 +343,49 @@
                 android:text=""
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/interests_grid" />
+
+            <ImageView
+                android:id="@+id/likeBtn"
+                android:layout_width="74dp"
+                android:layout_height="59dp"
+                android:layout_marginTop="376dp"
+                android:background="@drawable/circle"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baseline_heart" />
+
+
+            <ImageView
+                android:id="@+id/msgBtn"
+                android:layout_width="74dp"
+                android:layout_height="59dp"
+                android:layout_marginTop="376dp"
+                android:background="@drawable/circle"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.81"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baseline_message_24" />
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="74dp"
+                android:layout_height="59dp"
+                android:layout_marginTop="376dp"
+                android:background="@drawable/circle"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.16"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </android.widget.ScrollView>

@@ -24,13 +24,13 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/dashboardImage"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/sampleperson1" />
 
             <TextView
@@ -43,32 +43,29 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image" />
+                app:layout_constraintTop_toBottomOf="@id/dashboardImage" />
 
             <TextView
-                android:id="@+id/profession"
+                android:id="@+id/gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="16dp"
-                android:text="Actress"
+                android:text="Female"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/name"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="59dp"
-                android:text="30"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/name"
-                app:layout_constraintTop_toBottomOf="@+id/image" />
+            <ProgressBar
+                android:id="@+id/dashboardProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="72dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="49dp"
+                app:layout_constraintStart_toStartOf="@+id/dashboardImage"
+                app:layout_constraintTop_toTopOf="@+id/dashboardImage" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

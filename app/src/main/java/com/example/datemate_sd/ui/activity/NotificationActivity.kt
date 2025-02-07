@@ -1,57 +1,45 @@
 package com.example.datemate_sd.ui.activity
 
+// NotificationActivity.kt
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.datemate_sd.Adapter.NotificationAdapter
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityNotificationBinding
+import com.example.datemate_sd.viewmodel.NotificationViewModel
+import com.example.datemate_sd.Adapter.NotificationAdapter
 
 class NotificationActivity : AppCompatActivity() {
-    lateinit var recyclerView: RecyclerView
 
-    lateinit var binding: ActivityNotificationBinding
+    private lateinit var binding: ActivityNotificationBinding
+    private lateinit var notificationAdapter: NotificationAdapter
 
-    var titleList =  ArrayList<String>()
-
-    var desList = ArrayList<String>()
-
-    lateinit var notificationAdapter: NotificationAdapter
+    private val notificationViewModel: NotificationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        recyclerView = binding.recyclerViewNotifications
 
-        titleList.add("Kiara admani")
-        titleList.add("Sabita kaphle")
-        titleList.add("Hira")
-        titleList.add("samir")
-        titleList.add("Keshav")
+        // Initialize adapter with an empty list
+        notificationAdapter = NotificationAdapter(this, emptyList())
 
+        binding.recyclerViewNotifications.apply {
+            adapter = notificationAdapter
+            layoutManager = LinearLayoutManager(this@NotificationActivity)
+        }
 
-        desList.add("Like your profile")
-        desList.add("Send message")
-        desList.add("Like your profile")
-        desList.add("send message")
-        desList.add("Like your profile")
+        // Observe notifications LiveData
+        notificationViewModel.notifications.observe(this, Observer { notifications ->
+            notificationAdapter.updateNotifications(notifications)
+        })
 
-        notificationAdapter = NotificationAdapter(
-            this@NotificationActivity,
-            titleList, desList
-        )
-
-        recyclerView.adapter = notificationAdapter
-
-        recyclerView.layoutManager = LinearLayoutManager(
-            this@NotificationActivity
-        )
+        // Fetch notifications for the current user (Replace with actual user ID)
+        notificationViewModel.listenForNotifications("user_id_here")
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

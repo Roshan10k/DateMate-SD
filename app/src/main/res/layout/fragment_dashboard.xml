@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/notification_Icon"
+        android:id="@+id/noti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/dashboardRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
@@ -46,4 +46,14 @@
         tools:listitem="@layout/dashboarddesign">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/dashboardLoadingProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="121dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="243dp"
+        app:layout_constraintStart_toStartOf="@+id/dashboardRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/dashboardRecyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
