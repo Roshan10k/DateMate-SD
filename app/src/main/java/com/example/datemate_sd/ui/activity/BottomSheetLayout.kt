@@ -22,7 +22,7 @@ class BottomSheetLayout : AppCompatActivity() {
         // Initialize buttons
         interestedInMan = findViewById(R.id.interestedInMan)
         interestedInWoman = findViewById(R.id.interestedInWoman)
-        interestedInOther = findViewById(R.id.interestedInOther)
+
 
         // Set up button click listeners
         val buttons = listOf(interestedInMan, interestedInWoman, interestedInOther)

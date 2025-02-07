@@ -5,24 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.datemate_sd.R
 import androidx.recyclerview.widget.RecyclerView
+import com.example.datemate_sd.model.UserModel
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 
 class DashboardRecyclerAdapter(
     val context: Context,
-    val imagelist: ArrayList<Int>,
-    val nameList: ArrayList<String>,
-    val ageList: ArrayList<String>,
-    val profession: ArrayList<String>,
+    var data : ArrayList<UserModel>
 
     ): RecyclerView.Adapter<DashboardRecyclerAdapter.DasboardViewHolder>() {
     class DasboardViewHolder(itemView: View ): RecyclerView.ViewHolder(itemView){
-        val image: ImageView = itemView.findViewById(R.id.image)
+        val image: ImageView = itemView.findViewById(R.id.dashboardImage)
         val name: TextView = itemView.findViewById(R.id.name)
-        val age: TextView = itemView.findViewById(R.id.age)
-        val profession: TextView = itemView.findViewById(R.id.profession)
-
+        val gender: TextView = itemView.findViewById(R.id.gender)
+        val progessBar: ProgressBar = itemView.findViewById(R.id.dashboardProgressBar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DasboardViewHolder {
@@ -34,14 +34,27 @@ class DashboardRecyclerAdapter(
         holder: DasboardViewHolder,
         position: Int
     ) {
-        holder.name.text = nameList[position]
-        holder.age.text = ageList[position]
-        holder.profession.text = profession[position]
-        holder.image.setImageResource(imagelist[position])
+        holder.name.text = data[position].name
+        holder.gender.text = data[position].gender
+
+        Picasso.get().load(data[position].imageurl).into(holder.image,object:Callback{
+            override fun onSuccess() {
+                holder.progessBar.visibility = View.GONE
+            }
+            override fun onError(e: Exception?) {
+            }
+
+        })
     }
 
     override fun getItemCount(): Int {
-        return imagelist.size
+        return data.size
+    }
+
+    fun updateData(Users: List<UserModel>){
+        data.clear()
+        data.addAll(Users)
+        notifyDataSetChanged()
     }
 
 }

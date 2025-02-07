@@ -1,15 +1,18 @@
 package com.example.datemate_sd.ui.Adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.R
+import com.example.datemate_sd.model.MessageModel
+import com.example.datemate_sd.ui.activity.ChatPageActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
-data class Message(val name: String, val message: String, val time: String, val count: Int)
-
-class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
+class MessageAdapter(private var messages: List<MessageModel>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.nameDisplayTextView)
@@ -27,9 +30,32 @@ class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter
         val message = messages[position]
         holder.nameTextView.text = message.name
         holder.messageTextView.text = message.message
-        holder.timeTextView.text = message.time
+        holder.timeTextView.text = formatTime(message.time)
         holder.countTextView.text = message.count.toString()
+
+        holder.itemView.setOnClickListener {
+            val context = it.context
+            val intent = Intent(context, ChatPageActivity::class.java).apply {
+                putExtra("userName", message.name)
+                putExtra("senderId", message.senderId)
+            }
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int = messages.size
+
+    private fun formatTime(timestamp: Long?): String {
+        return timestamp?.let {
+            val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
+            sdf.format(Date(it))
+        } ?: "Unknown"
+    }
+
+    // Function to update the list dynamically
+    fun updateMessages(newMessages: List<MessageModel>) {
+        messages = newMessages
+        notifyDataSetChanged()
+    }
 }

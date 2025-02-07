@@ -1,5 +1,7 @@
 package com.example.datemate_sd.repository
 
+import android.content.Context
+import android.net.Uri
 import com.example.datemate_sd.model.UserModel
 import com.google.firebase.auth.FirebaseUser
 
@@ -27,4 +29,13 @@ interface UserRepository {
         userId: String,
         callback: (UserModel?,Boolean, String) -> Unit
     )
+
+    fun getAllUsers(callback: (List<UserModel>?, Boolean, String) -> Unit)
+
+    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit)
+
+    fun getFileNameFromUri(context: Context, uri: Uri): String?
+
+
+
 }

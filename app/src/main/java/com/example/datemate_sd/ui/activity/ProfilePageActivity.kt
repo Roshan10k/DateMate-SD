@@ -3,20 +3,19 @@ package com.example.datemate_sd.ui.activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.TextUtils
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.datemate_sd.R
-import com.example.datemate_sd.databinding.ActivityForgetBinding
 import com.example.datemate_sd.databinding.ActivityProfilePageBinding
-
+import com.example.datemate_sd.viewmodel.NotificationViewModel
+import androidx.activity.viewModels
 class ProfilePageActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfilePageBinding
+
+    private val notificationViewModel: NotificationViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,7 +45,15 @@ class ProfilePageActivity : AppCompatActivity() {
             } else {
                 binding.likeBtn.imageTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(this, R.color.endpink))
-                Toast.makeText(this, "Like Sent", Toast.LENGTH_SHORT).show()
+
+                val targetUserId = "target_user_id_here" // Get the target user's ID
+                val targetUserToken = "target_user_fcm_token_here" // Get the target user's FCM token
+
+                // Save the notification in Firestore
+                notificationViewModel.saveNotification(targetUserId, "New Like", "Someone liked your profile.")
+
+                // Send a push notification to the target user
+                notificationViewModel.sendPushNotification(targetUserToken, "New Like", "Someone liked your profile.")
             }
             isLiked = !isLiked
         }
