@@ -38,8 +38,17 @@ class UserViewModel(private val repo: UserRepository) {
         return repo.getCurrentUSer()
     }
 
-    fun getUserFromDatabase(userId: String, callback: (UserModel?, Boolean, String) -> Unit) {
-        repo.getUserFromDatabase(userId, callback)
+    var _users = MutableLiveData<UserModel>()
+    var users  = MutableLiveData<UserModel>()
+        get() = _users
+
+    fun getUserFromDatabase(userId: String) {
+        repo.getUserFromDatabase(userId){
+            users,success,message->
+            if (success){
+                _users.value = users
+            }
+        }
     }
 
 
