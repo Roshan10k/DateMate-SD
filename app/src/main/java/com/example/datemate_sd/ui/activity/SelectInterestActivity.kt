@@ -72,7 +72,7 @@ class SelectInterestActivity : AppCompatActivity() {
             // Update the userModel with selected interests
             userModel.interestedIn = selectedInterests.joinToString(", ")
 
-                                val intent = Intent(this, IdealMatchPage::class.java)
+                    val intent = Intent(this, IdealMatchPage::class.java)
                     intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
                     startActivity(intent)
             // Call the repository to save the updated userModel

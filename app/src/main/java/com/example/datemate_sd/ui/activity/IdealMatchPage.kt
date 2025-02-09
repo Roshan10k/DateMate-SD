@@ -76,15 +76,20 @@ class IdealMatchPage : AppCompatActivity() {
         // Update the userModel with the selected ideal match
         userModel.idealMatch = selectedOption ?: ""
 
-        userViewModel.addUserToDatabase(userModel.UserId, userModel) { isSuccess, message ->
-            if (isSuccess) {
-                Toast.makeText(this, "User is registered successfully", Toast.LENGTH_SHORT).show()
-                // Navigate to the next activity
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            } else {
-                Toast.makeText(this, "error in registration: $message", Toast.LENGTH_SHORT).show()
-            }
-        }
+        // Pass the updated UserModel to the next activity
+        val intent = Intent(this, UploadImage::class.java)
+        intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
+        startActivity(intent)
+
+//        userViewModel.addUserToDatabase(userModel.UserId, userModel) { isSuccess, message ->
+//            if (isSuccess) {
+//                Toast.makeText(this, "User is registered successfully", Toast.LENGTH_SHORT).show()
+//                // Navigate to the next activity
+//                startActivity(Intent(this, LoginActivity::class.java))
+//                finish()
+//            } else {
+//                Toast.makeText(this, "error in registration: $message", Toast.LENGTH_SHORT).show()
+//            }
+//        }
     }
 }

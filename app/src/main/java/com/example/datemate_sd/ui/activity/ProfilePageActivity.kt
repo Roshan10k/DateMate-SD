@@ -49,6 +49,15 @@ class ProfilePageActivity : AppCompatActivity() {
             binding.interests.setText(it?.interestedIn.toString())
             binding.locationOfUser.setText(it?.address.toString())
             binding.lookingForData.setText(it?.idealMatch.toString())
+            Picasso.get()
+                .load(it?.galleryImage1)
+                .placeholder(R.drawable.sampleperson1)
+                .into(binding.galleryImage1)
+            Picasso.get()
+                .load(it?.galleryImage2)
+                .placeholder(R.drawable.sampleperson1)
+                .into(binding.galleryImage2)
+            binding.bornOnData.setText(it?.dateOfBirth.toString())
         }
 
 

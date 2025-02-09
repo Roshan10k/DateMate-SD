@@ -12,7 +12,8 @@ class BottomSheetLayout : AppCompatActivity() {
 
     private lateinit var interestedInMan: Button
     private lateinit var interestedInWoman: Button
-    private lateinit var interestedInOther: Button
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,7 @@ class BottomSheetLayout : AppCompatActivity() {
 
 
         // Set up button click listeners
-        val buttons = listOf(interestedInMan, interestedInWoman, interestedInOther)
+        val buttons = listOf(interestedInMan, interestedInWoman)
         buttons.forEach { button ->
             button.setOnClickListener {
                 setSelectedButton(button, buttons)
