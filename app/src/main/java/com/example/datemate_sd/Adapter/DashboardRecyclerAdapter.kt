@@ -1,6 +1,7 @@
 package com.example.datemate_sd.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.TextView
 import com.example.datemate_sd.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.datemate_sd.model.UserModel
+import com.example.datemate_sd.ui.activity.ProfilePageActivity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -45,6 +47,13 @@ class DashboardRecyclerAdapter(
             }
 
         })
+
+
+        holder.image.setOnClickListener{
+            val intent= Intent(context, ProfilePageActivity::class.java)
+            intent.putExtra("User",data[position].UserId)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

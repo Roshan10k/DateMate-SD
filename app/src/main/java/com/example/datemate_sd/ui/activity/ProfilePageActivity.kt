@@ -3,6 +3,7 @@ package com.example.datemate_sd.ui.activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +12,15 @@ import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityProfilePageBinding
 import com.example.datemate_sd.viewmodel.NotificationViewModel
 import androidx.activity.viewModels
+import com.example.datemate_sd.repository.UserRepositoryImpl
+import com.example.datemate_sd.viewmodel.UserViewModel
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+
 class ProfilePageActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfilePageBinding
+
+    lateinit var userViewModel: UserViewModel
 
     private val notificationViewModel: NotificationViewModel by viewModels()
 
@@ -21,6 +29,30 @@ class ProfilePageActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityProfilePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        var repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
+
+
+        var userId: String = intent.getStringExtra("User").toString()
+        userViewModel.getUserFromDatabase(userId)
+
+
+
+        userViewModel.users.observe(this){
+            binding.nameText.setText(it?.name.toString())
+            binding.textProfession.setText(it?.gender.toString())
+            Picasso.get()
+                .load(it?.imageurl)  // URL from database
+                .placeholder(R.drawable.sampleperson1)
+                .into(binding.profileImage)
+            binding.interests.setText(it?.interestedIn.toString())
+            binding.locationOfUser.setText(it?.address.toString())
+            binding.lookingForData.setText(it?.idealMatch.toString())
+        }
+
+
+
         binding.backBtn.setOnClickListener{
             val intent = Intent(this@ProfilePageActivity, NavigationActivity::class.java)
             startActivity(intent)

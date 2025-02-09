@@ -35,7 +35,7 @@
             <!-- About Section -->
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/profileImage"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_marginTop="1dp"
@@ -63,15 +63,14 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
             <TextView
                 android:id="@+id/text_profession"
                 android:layout_width="300dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
-
-                android:text="username"
+                android:text="Gender "
                 android:textColor="#FFFFFF"
                 android:textSize="25dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,26 +89,64 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_profession" />
 
+
+            <TextView
+                android:id="@+id/locationShow"
+                android:layout_width="144dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginStart="20dp"
+                android:text="🏠 Lives in "
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_label" />
+
             <!-- Interests Section -->
 
             <!-- Gallery Section -->
 
+
             <TextView
-                android:id="@+id/about_text"
-                android:layout_width="398dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/locationOfUser"
+                android:layout_width="215dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="20dp"
-
-
-                android:ellipsize="end"
-                android:maxLines="4"
-                android:paddingTop="10dp"
-                android:text="@string/Bio"
-                android:textColor="#BDBDBD"
+                android:layout_marginTop="75dp"
+                android:layout_marginEnd="12dp"
+                android:text=" Location"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp"
-                android:lines="4"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/locationShow"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/lookignForIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="34dp"
+                android:text="🔍 Looking for"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/about_label" />
+                app:layout_constraintTop_toBottomOf="@+id/locationShow" />
+
+
+            <TextView
+                android:id="@+id/lookingForData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="31dp"
+                android:text="Looking for"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                app:layout_constraintStart_toEndOf="@+id/lookignForIcon"
+                app:layout_constraintTop_toBottomOf="@+id/locationOfUser" />
 
             <TextView
                 android:id="@+id/interests_label"
@@ -122,64 +159,79 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/lookignForIcon" />
 
-            <GridLayout
-                android:id="@+id/interests_grid"
-                android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:columnCount="3"
-                android:rowCount="2"
-                android:paddingLeft="9dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+            <TextView
+                android:id="@+id/interests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
+                android:text="Interests"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/interests_label">
+                app:layout_constraintTop_toBottomOf="@+id/interests_label" />
 
-                <TextView
-                    android:layout_width="103dp"
-                    android:layout_height="33dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/button_bg"
-                    android:text="🎵 Music"
-                    android:textColor="#BDBDBD"
-                    android:textSize="20sp" />
+            <!--            <GridLayout-->
+<!--                android:id="@+id/interests_grid"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="96dp"-->
+<!--                android:layout_marginStart="4dp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:layout_marginEnd="4dp"-->
+<!--                android:columnCount="3"-->
+<!--                android:rowCount="2"-->
+<!--                android:paddingLeft="9dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/interests_label">-->
 
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="33dp"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/button_bg"
-                    android:text="📚 Reading"
-                    android:textColor="#BDBDBD"
-                    android:textSize="20sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="103dp"-->
+<!--                    android:layout_height="33dp"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/button_bg"-->
+<!--                    android:text="🎵 Music"-->
+<!--                    android:textColor="#BDBDBD"-->
+<!--                    android:textSize="20sp" />-->
 
-                <TextView
-                    android:layout_width="134dp"
-                    android:layout_height="33dp"
-                    android:layout_row="1"
-                    android:layout_column="0"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/button_bg"
-                    android:text="✈️ Traveling"
-                    android:textColor="#BDBDBD"
-                    android:textSize="20sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="125dp"-->
+<!--                    android:layout_height="33dp"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/button_bg"-->
+<!--                    android:text="📚 Reading"-->
+<!--                    android:textColor="#BDBDBD"-->
+<!--                    android:textSize="20sp" />-->
 
-                <TextView
-                    android:layout_width="161dp"
-                    android:layout_height="33dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/button_bg"
-                    android:text="📸 Photography"
+<!--                <TextView-->
+<!--                    android:layout_width="134dp"-->
+<!--                    android:layout_height="33dp"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/button_bg"-->
+<!--                    android:text="✈️ Traveling"-->
+<!--                    android:textColor="#BDBDBD"-->
+<!--                    android:textSize="20sp" />-->
 
-                    android:textColor="#BDBDBD"
-                    android:textSize="20sp" />
-            </GridLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="161dp"-->
+<!--                    android:layout_height="33dp"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/button_bg"-->
+<!--                    android:text="📸 Photography"-->
+
+<!--                    android:textColor="#BDBDBD"-->
+<!--                    android:textSize="20sp" />-->
+<!--            </GridLayout>-->
+
+
 
             <TextView
                 android:id="@+id/gallery_label"
@@ -189,122 +241,121 @@
                 android:layout_marginTop="32dp"
                 android:text="Gallery"
                 android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
-
                 android:textColor="#FFFFFF"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/interests_grid" />
+                app:layout_constraintTop_toBottomOf="@+id/interests" />
 
 
-            <GridLayout
-                android:id="@+id/gallery_grid"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
-                android:clipToPadding="false"
-                android:columnCount="3"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:rowCount="2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gallery_label">
+<!--            <GridLayout-->
+<!--                android:id="@+id/gallery_grid"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="300dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="12dp"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:columnCount="3"-->
+<!--                android:paddingLeft="2dp"-->
+<!--                android:paddingRight="2dp"-->
+<!--                android:rowCount="2"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/gallery_label">-->
 
-                <!-- First Image -->
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_row="0"
-                    android:layout_rowWeight="1"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/rounded_corner"
+<!--                &lt;!&ndash; First Image &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/rounded_corner"-->
 
-                    android:clipToOutline="true"
-                    android:outlineProvider="background"
+<!--                    android:clipToOutline="true"-->
+<!--                    android:outlineProvider="background"-->
 
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/sampleperson1" />
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/sampleperson1" />-->
 
-                <!-- Second Image -->
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_row="0"
-                    android:layout_rowWeight="1"
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/rounded_corner"
-                    android:clipToOutline="true"
-                    android:outlineProvider="background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/sampleperson1" />
+<!--                &lt;!&ndash; Second Image &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/rounded_corner"-->
+<!--                    android:clipToOutline="true"-->
+<!--                    android:outlineProvider="background"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/sampleperson1" />-->
 
-                <!-- Third Image -->
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_row="0"
-                    android:layout_rowWeight="1"
-                    android:layout_column="2"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/rounded_corner"
-                    android:clipToOutline="true"
-                    android:outlineProvider="background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/sampleperson1" />
+<!--                &lt;!&ndash; Third Image &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="2"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/rounded_corner"-->
+<!--                    android:clipToOutline="true"-->
+<!--                    android:outlineProvider="background"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/sampleperson1" />-->
 
-                <!-- Fourth Image -->
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_row="1"
-                    android:layout_rowWeight="1"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/rounded_corner"
-                    android:clipToOutline="true"
-                    android:outlineProvider="background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/sampleperson1" />
+<!--                &lt;!&ndash; Fourth Image &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/rounded_corner"-->
+<!--                    android:clipToOutline="true"-->
+<!--                    android:outlineProvider="background"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/sampleperson1" />-->
 
-                <!-- Fifth Image -->
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_row="1"
-                    android:layout_rowWeight="1"
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/rounded_corner"
-                    android:clipToOutline="true"
-                    android:outlineProvider="background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/sampleperson1" />
+<!--                &lt;!&ndash; Fifth Image &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/rounded_corner"-->
+<!--                    android:clipToOutline="true"-->
+<!--                    android:outlineProvider="background"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/sampleperson1" />-->
 
-                <!-- Sixth Image -->
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_row="1"
-                    android:layout_rowWeight="1"
-                    android:layout_column="2"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/rounded_corner"
-                    android:clipToOutline="true"
-                    android:outlineProvider="background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/sampleperson1" />
+<!--                &lt;!&ndash; Sixth Image &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="2"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/rounded_corner"-->
+<!--                    android:clipToOutline="true"-->
+<!--                    android:outlineProvider="background"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/sampleperson1" />-->
 
-            </GridLayout>
+<!--            </GridLayout>-->
 
             <TextView
                 android:id="@+id/textView2"
@@ -325,12 +376,11 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="41dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/interests_label"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/about_text" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -342,7 +392,7 @@
                 android:background="@color/white"
                 android:text=""
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/interests_grid" />
+                app:layout_constraintTop_toBottomOf="@+id/interests" />
 
             <ImageView
                 android:id="@+id/likeBtn"
@@ -354,7 +404,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_heart" />
 
@@ -373,6 +422,32 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_message_24" />
 
+            <ImageView
+                android:id="@+id/galleryImage1"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sampleperson1"
+                app:layout_constraintTop_toBottomOf="@id/gallery_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.48" />
+
+            <ImageView
+                android:id="@+id/galleryImage2"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="8dp"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sampleperson1"
+                app:layout_constraintTop_toBottomOf="@id/gallery_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.48" />
             <ImageView
                 android:id="@+id/backBtn"
                 android:layout_width="74dp"

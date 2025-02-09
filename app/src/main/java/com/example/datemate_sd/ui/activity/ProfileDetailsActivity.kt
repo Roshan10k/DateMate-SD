@@ -50,9 +50,7 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
             imageUtils.launchGallery(this)
         }
 
-        binding.continueBtnPD.setOnClickListener {
-            uploadImage()
-        }
+
 
 
         // Initialize the UserRepository and ViewModel
