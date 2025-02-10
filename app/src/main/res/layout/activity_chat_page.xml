@@ -42,28 +42,24 @@
 
     </TextView>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="395dp"
+        android:layout_height="524dp"
+        android:layout_marginTop="311dp"
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:padding="20dp"
-        android:visibility="gone"
+        android:padding="8dp"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/viewChat"
-        app:layout_constraintTop_toBottomOf="@+id/backArrow" />
-
-    <ProgressBar
-        android:id="@+id/progressBarChat"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewChat"
-        app:layout_constraintEnd_toEndOf="@id/viewChat"
-        app:layout_constraintStart_toStartOf="@id/viewChat"
-        app:layout_constraintTop_toTopOf="@id/viewChat" />
-
+        app:layout_constraintEnd_toEndOf="@+id/viewChat"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textName"
+        app:layout_constraintVertical_bias="0.99" />
 
     <FrameLayout
         android:id="@+id/layoutSend"
@@ -75,6 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/sendMessage"
             android:layout_width="60dp"
             android:layout_height="100dp"
             android:layout_gravity="center"

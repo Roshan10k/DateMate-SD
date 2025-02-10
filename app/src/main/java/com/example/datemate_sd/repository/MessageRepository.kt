@@ -4,16 +4,10 @@ import com.example.datemate_sd.model.MessageModel
 
 interface MessageRepository {
 
-    fun getAllMessages(callback: (List<MessageModel>?, Boolean, String) -> Unit)
 
-    fun addMessage(messageModel: MessageModel, callback: (Boolean, String) -> Unit)
+        fun sendMessage(message: MessageModel, callback: (Boolean, String?) -> Unit)
 
-
-
+        fun getMessages(senderId: String, receiverId: String, callback: (List<MessageModel>) -> Unit)
 
 
-    fun deleteMessage(messageId: String, callback: (Boolean, String) -> Unit)
-
-
-    fun getMessageById(messageId: String, callback: (MessageModel?, Boolean, String) -> Unit)
 }

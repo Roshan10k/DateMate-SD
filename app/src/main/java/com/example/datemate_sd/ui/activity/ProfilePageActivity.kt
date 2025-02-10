@@ -60,12 +60,14 @@ class ProfilePageActivity : AppCompatActivity() {
         }
 
 
-        binding.msgBtn.setOnClickListener{
-            val intent = Intent(this@ProfilePageActivity, NavigationActivity::class.java)
-            intent.putExtra("navigate_to", "MessageFragment")
+        binding.msgBtn.setOnClickListener {
+            val intent = Intent(this@ProfilePageActivity, ChatPageActivity::class.java)
+            intent.putExtra("receiverId", userId)
+            intent.putExtra("userName", userViewModel.users.value?.name)  // Pass user's name
+            intent.putExtra("userImage", userViewModel.users.value?.imageurl)  // Pass user's profile image URL
             startActivity(intent)
-
         }
+
 
         var isLiked = false
 

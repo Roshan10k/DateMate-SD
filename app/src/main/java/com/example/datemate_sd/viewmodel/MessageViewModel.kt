@@ -5,47 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.datemate_sd.model.MessageModel
 import com.example.datemate_sd.repository.MessageRepository
-import com.example.datemate_sd.repository.MessageRepositoryImpl
 
-class MessageViewModel(private val repo: MessageRepository = MessageRepositoryImpl()) : ViewModel() {
-
+class MessageViewModel(private val chatRepository: MessageRepository) : ViewModel() {
     private val _messages = MutableLiveData<List<MessageModel>>()
     val messages: LiveData<List<MessageModel>> get() = _messages
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> get() = _errorMessage
-
-    fun getAllMessages() {
-        repo.getAllMessages { messageList, success, message ->
-            if (success) {
-                _messages.value = messageList
-            } else {
-                _errorMessage.value = message
+    fun sendMessage(message: MessageModel) {
+        chatRepository.sendMessage(message) { success, error ->
+            if (!success) {
+                // Handle error (e.g., show a toast)
             }
         }
     }
 
-    fun addMessage(messageModel: MessageModel) {
-        repo.addMessage(messageModel) { success, message ->
-            if (success) {
-                getAllMessages() // Refresh messages after adding a new one
-            } else {
-                _errorMessage.value = message
-            }
+    fun loadMessages(senderId: String, receiverId: String) {
+        chatRepository.getMessages(senderId, receiverId) { messages ->
+            _messages.postValue(messages)
         }
-    }
-
-    fun deleteMessage(messageId: String) {
-        repo.deleteMessage(messageId) { success, message ->
-            if (success) {
-                getAllMessages() // Refresh messages after deletion
-            } else {
-                _errorMessage.value = message
-            }
-        }
-    }
-
-    fun getMessageById(messageId: String, callback: (MessageModel?, Boolean, String) -> Unit) {
-        repo.getMessageById(messageId, callback)
     }
 }

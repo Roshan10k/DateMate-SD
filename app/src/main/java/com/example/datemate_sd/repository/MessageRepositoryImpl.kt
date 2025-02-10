@@ -1,83 +1,68 @@
 package com.example.datemate_sd.repository
 
+import android.util.Log
 import com.example.datemate_sd.model.MessageModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
-class MessageRepositoryImpl: MessageRepository {
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private var database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private var reference = database.reference.child("mesaages")
+class MessageRepositoryImpl : MessageRepository {
+    private val database: DatabaseReference = FirebaseDatabase.getInstance().reference.child("messages")
 
-
-    override fun getAllMessages(callback: (List<MessageModel>?, Boolean, String) -> Unit) {
-        reference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val messages = mutableListOf<MessageModel>()
-                    for (messageSnapshot in snapshot.children) {
-                        val message = messageSnapshot.getValue(MessageModel::class.java)
-                        if (message != null) {
-                            messages.add(message)
-                        }
-                    }
-                    callback(messages, true, "Messages fetched successfully")
-                } else {
-                    callback(null, false, "No messages found")
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                callback(null, false, error.message)
-            }
-        })
-
-    }
-
-        override fun addMessage(messageModel: MessageModel, callback: (Boolean, String) -> Unit) {
-            val messageId = reference.push().key ?: return callback(false, "Failed to generate message ID")
-            reference.child(messageId).setValue(messageModel).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    callback(true, "Message added successfully")
-                } else {
-                    callback(false, it.exception?.message ?: "Error adding message")
-                }
-            }
-        }
-
-
-
-    override fun deleteMessage(messageId: String, callback: (Boolean, String) -> Unit) {
-        reference.child(messageId).removeValue().addOnCompleteListener {
-            if (it.isSuccessful) {
-                callback(true, "Message deleted successfully")
-            } else {
-                callback(false, it.exception?.message ?: "Error deleting message")
-            }
+    override fun sendMessage(message: MessageModel, callback: (Boolean, String?) -> Unit) {
+        val messageKey = database.push().key
+        if (messageKey != null) {
+            // Save message under senderId -> receiverId
+            database.child(message.senderId).child(message.receiverId).child(messageKey).setValue(message)
+                .addOnSuccessListener { callback(true, null) }
+                .addOnFailureListener { exception -> callback(false, exception.message) }
+        } else {
+            callback(false, "Failed to generate message key")
         }
     }
 
-    override fun getMessageById(
-        messageId: String,
-        callback: (MessageModel?, Boolean, String) -> Unit
-    ) {
-        reference.child(messageId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val message = snapshot.getValue(MessageModel::class.java)
-                    callback(message, true, "Message fetched successfully")
-                } else {
-                    callback(null, false, "Message not found")
-                }
-            }
+    override fun getMessages(senderId: String, receiverId: String, callback: (List<MessageModel>) -> Unit) {
+        // Two lists: one for messages sent from senderId -> receiverId, and one for messages from receiverId -> senderId
+        val sentMessages = mutableListOf<MessageModel>()
+        val receivedMessages = mutableListOf<MessageModel>()
 
+        // Reference for messages sent by the current user to the receiver
+        val refSent = database.child(senderId).child(receiverId)
+        // Reference for messages sent by the receiver to the current user
+        val refReceived = database.child(receiverId).child(senderId)
+
+        // Listener for messages sent by senderId
+        refSent.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                sentMessages.clear()
+                for (child in snapshot.children) {
+                    val message = child.getValue(MessageModel::class.java)
+                    message?.let { sentMessages.add(it) }
+                }
+                // Merge and sort whenever this listener fires
+                val combined = (sentMessages + receivedMessages).distinctBy { it.timestamp }.toMutableList()
+                combined.sortBy { it.timestamp }
+                callback(combined)
+            }
             override fun onCancelled(error: DatabaseError) {
-                callback(null, false, error.message)
+                callback(emptyList())
+            }
+        })
+
+        // Listener for messages received from receiverId
+        refReceived.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                receivedMessages.clear()
+                for (child in snapshot.children) {
+                    val message = child.getValue(MessageModel::class.java)
+                    message?.let { receivedMessages.add(it) }
+                }
+                // Merge and sort whenever this listener fires
+                val combined = (sentMessages + receivedMessages).distinctBy { it.timestamp }.toMutableList()
+                combined.sortBy { it.timestamp }
+                callback(combined)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                callback(emptyList())
             }
         })
     }
-
 }

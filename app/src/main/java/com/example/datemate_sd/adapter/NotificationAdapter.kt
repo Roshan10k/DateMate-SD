@@ -1,4 +1,4 @@
-package com.example.datemate_sd.Adapter
+package com.example.datemate_sd.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

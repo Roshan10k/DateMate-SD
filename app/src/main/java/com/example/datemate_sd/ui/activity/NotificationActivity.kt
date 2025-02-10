@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityNotificationBinding
 import com.example.datemate_sd.viewmodel.NotificationViewModel
-import com.example.datemate_sd.Adapter.NotificationAdapter
+import com.example.datemate_sd.adapter.NotificationAdapter
 
 class NotificationActivity : AppCompatActivity() {
 

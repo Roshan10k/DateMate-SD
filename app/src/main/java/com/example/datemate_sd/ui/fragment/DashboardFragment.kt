@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.datemate_sd.Adapter.DashboardRecyclerAdapter
-import com.example.datemate_sd.R
+import com.example.datemate_sd.adapter.DashboardRecyclerAdapter
 import com.example.datemate_sd.databinding.FragmentDashboardBinding
 import com.example.datemate_sd.repository.UserRepositoryImpl
 import com.example.datemate_sd.ui.activity.NotificationActivity
