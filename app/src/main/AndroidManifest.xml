@@ -44,6 +44,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.activity.UploadImage"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.TermsAndConditionActivity"
             android:exported="true" >
             <intent-filter>
