@@ -8,10 +8,6 @@ interface MessageRepository {
 
     fun addMessage(messageModel: MessageModel, callback: (Boolean, String) -> Unit)
 
-
-
-
-
     fun deleteMessage(messageId: String, callback: (Boolean, String) -> Unit)
 
 
