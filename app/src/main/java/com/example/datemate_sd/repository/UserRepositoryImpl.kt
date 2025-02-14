@@ -125,7 +125,8 @@ class UserRepositoryImpl : UserRepository {
                         var Users = mutableListOf<UserModel>()
                         for (eachData in snapshot.children){
                             var model = eachData.getValue(UserModel::class.java)
-                            if (model != null){
+                            var currentUserId = getCurrentUSer()?.uid.toString()
+                            if (model != null && model.UserId!=currentUserId){
                                 Users.add(model)
                             }
                         }

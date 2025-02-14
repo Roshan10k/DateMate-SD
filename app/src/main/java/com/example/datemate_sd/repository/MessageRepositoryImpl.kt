@@ -10,8 +10,8 @@ class MessageRepositoryImpl : MessageRepository {
     override fun sendMessage(message: MessageModel, callback: (Boolean, String?) -> Unit) {
         val messageKey = database.push().key
         if (messageKey != null) {
-            // Save message under senderId -> receiverId
-            database.child(message.senderId).child(message.receiverId).child(messageKey).setValue(message)
+            val updatedMessage = message.copy(messageId = messageKey)
+            database.child(messageKey).setValue(updatedMessage)
                 .addOnSuccessListener { callback(true, null) }
                 .addOnFailureListener { exception -> callback(false, exception.message) }
         } else {
@@ -20,49 +20,47 @@ class MessageRepositoryImpl : MessageRepository {
     }
 
     override fun getMessages(senderId: String, receiverId: String, callback: (List<MessageModel>) -> Unit) {
-        // Two lists: one for messages sent from senderId -> receiverId, and one for messages from receiverId -> senderId
-        val sentMessages = mutableListOf<MessageModel>()
-        val receivedMessages = mutableListOf<MessageModel>()
-
-        // Reference for messages sent by the current user to the receiver
-        val refSent = database.child(senderId).child(receiverId)
-        // Reference for messages sent by the receiver to the current user
-        val refReceived = database.child(receiverId).child(senderId)
-
-        // Listener for messages sent by senderId
-        refSent.addValueEventListener(object : ValueEventListener {
+        database.orderByChild("timestamp").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                sentMessages.clear()
+                val messagesList = mutableListOf<MessageModel>()
                 for (child in snapshot.children) {
                     val message = child.getValue(MessageModel::class.java)
-                    message?.let { sentMessages.add(it) }
+                    if (message != null &&
+                        ((message.senderId == senderId && message.receiverId == receiverId) ||
+                                (message.senderId == receiverId && message.receiverId == senderId))) {
+                        messagesList.add(message)
+                    }
                 }
-                // Merge and sort whenever this listener fires
-                val combined = (sentMessages + receivedMessages).distinctBy { it.timestamp }.toMutableList()
-                combined.sortBy { it.timestamp }
-                callback(combined)
+                messagesList.sortBy { it.timestamp }
+                callback(messagesList)
             }
-            override fun onCancelled(error: DatabaseError) {
-                callback(emptyList())
-            }
-        })
 
-        // Listener for messages received from receiverId
-        refReceived.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                receivedMessages.clear()
-                for (child in snapshot.children) {
-                    val message = child.getValue(MessageModel::class.java)
-                    message?.let { receivedMessages.add(it) }
-                }
-                // Merge and sort whenever this listener fires
-                val combined = (sentMessages + receivedMessages).distinctBy { it.timestamp }.toMutableList()
-                combined.sortBy { it.timestamp }
-                callback(combined)
-            }
             override fun onCancelled(error: DatabaseError) {
                 callback(emptyList())
             }
         })
     }
+
+    override fun markMessagesAsRead(senderId: String, receiverId: String) {
+        database.orderByChild("receiverId").equalTo(receiverId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (messageSnap in snapshot.children) {
+                        val message = messageSnap.getValue(MessageModel::class.java)
+                        if (message != null && message.senderId == senderId && !message.isRead) {
+                            messageSnap.ref.updateChildren(mapOf("isRead" to true))
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("MessageRepositoryImpl", "Error marking messages as read: ${error.message}")
+                }
+            })
+    }
+
+
+
+
+
 }

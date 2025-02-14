@@ -12,9 +12,8 @@
 
     <View
         android:id="@+id/viewChat"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="408dp"
+        android:layout_height="651dp"
         android:background="@drawable/background_chat"
         app:layout_constraintBottom_toTopOf="@+id/layoutSend"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,16 +44,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecycler"
-        android:layout_width="395dp"
-        android:layout_height="524dp"
-        android:layout_marginTop="311dp"
+        android:layout_width="405dp"
+        android:layout_height="578dp"
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:padding="8dp"
+        android:padding="10dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="@+id/viewChat"
+        app:layout_constraintBottom_toTopOf="@+id/inputMessage"
         app:layout_constraintEnd_toEndOf="@+id/viewChat"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"

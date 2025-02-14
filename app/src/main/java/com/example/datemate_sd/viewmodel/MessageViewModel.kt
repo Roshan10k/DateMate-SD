@@ -23,4 +23,12 @@ class MessageViewModel(private val chatRepository: MessageRepository) : ViewMode
             _messages.postValue(messages)
         }
     }
+
+    fun markMessagesAsRead(senderId: String, receiverId: String) {
+        chatRepository.markMessagesAsRead(senderId, receiverId)
+    }
+
+
+
+
 }

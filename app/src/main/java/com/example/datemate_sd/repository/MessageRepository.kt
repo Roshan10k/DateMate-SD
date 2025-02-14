@@ -9,5 +9,9 @@ interface MessageRepository {
 
         fun getMessages(senderId: String, receiverId: String, callback: (List<MessageModel>) -> Unit)
 
+        fun markMessagesAsRead(senderId: String, receiverId: String)
+
+
+
 
 }

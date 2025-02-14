@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<resources>
-    <style name="RoundedImageView" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="RoundedImageView" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">50%</item>
     </style>
-
 </resources>

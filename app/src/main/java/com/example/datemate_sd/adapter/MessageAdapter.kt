@@ -1,54 +1,95 @@
 package com.example.datemate_sd.adapter
 
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.datemate_sd.R
+import com.example.datemate_sd.databinding.SampleMessageBinding
 import com.example.datemate_sd.model.MessageModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import java.util.Date
+import java.util.Locale
 
 class MessageAdapter(
     private var messages: List<MessageModel>,
-    private val onItemClick: (MessageModel) -> Unit
+    private var unreadCounts: Map<String, Int>,
+    private val onMessageClick: (MessageModel) -> Unit
 ) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
-    class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val username: TextView = itemView.findViewById(R.id.nameDisplayTextView)
-        val lastMessage: TextView = itemView.findViewById(R.id.msgDisplayTextView)
-        val time: TextView = itemView.findViewById(R.id.timeDisplayTextView)
+    private val userNamesCache = mutableMapOf<String, String>()
+    private val auth = FirebaseAuth.getInstance()
+
+    fun updateMessages(newMessages: List<MessageModel>, newUnreadCounts: Map<String, Int>) {
+        messages = newMessages
+        unreadCounts = newUnreadCounts
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.sample_message, parent, false)
-        return MessageViewHolder(view)
+        val binding = SampleMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MessageViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val message = messages[position]
+        val currentUserId = auth.currentUser?.uid ?: ""
 
-        // Fetch user name from Firestore (replace with actual logic)
-        fetchUserName(message.receiverId) { name ->
-            holder.username.text = name
-        }
+        // Determine the chat partner (other user)
+        val chatPartnerId = if (message.senderId == currentUserId) message.receiverId else message.senderId
+        val unreadCount = unreadCounts[chatPartnerId] ?: 0
 
-        holder.lastMessage.text = message.message
-        holder.time.text = android.text.format.DateFormat.format("hh:mm a", message.timestamp)
-
-        holder.itemView.setOnClickListener {
-            onItemClick(message)
-        }
+        holder.bind(message, chatPartnerId, unreadCount)
     }
 
-    private fun fetchUserName(userId: String, callback: (String) -> Unit) {
-        // Fetch user name from Firestore and call callback(name)
-    }
+    override fun getItemCount(): Int = messages.size
 
-    override fun getItemCount() = messages.size
+    inner class MessageViewHolder(private val binding: SampleMessageBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun updateMessages(newMessages: List<MessageModel>) {
-        messages = newMessages
-        notifyDataSetChanged()
+        fun bind(message: MessageModel, chatPartnerId: String, unreadCount: Int) {
+            // Fetch chat partner's name (if not cached)
+            val userName = userNamesCache[chatPartnerId] ?: fetchUserName(chatPartnerId)
+
+            binding.nameDisplayTextView.text = userName
+            binding.msgDisplayTextView.text = message.message
+            binding.timeDisplayTextView.text = formatTime(message.timestamp)
+
+
+            // Show unread message count
+            if (unreadCount > 0) {
+                binding.msgCounterTextview.text = String.format(Locale.getDefault(), "%d", unreadCount)
+
+                binding.msgCounterTextview.visibility = View.VISIBLE
+            } else {
+                binding.msgCounterTextview.visibility = View.GONE
+            }
+
+            itemView.setOnClickListener { onMessageClick(message) }
+        }
+
+        private fun formatTime(timestamp: Long): String {
+            val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
+            return sdf.format(Date(timestamp))
+        }
+
+        private fun fetchUserName(userId: String): String {
+            val userRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userName = snapshot.child("name").getValue(String::class.java)
+                    if (userName != null) {
+                        userNamesCache[userId] = userName // Cache the name
+                        notifyDataSetChanged() // Refresh the adapter when name is fetched
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle the error if needed
+                }
+            })
+            return "Loading..." // Placeholder until the name is fetched
+        }
     }
 }

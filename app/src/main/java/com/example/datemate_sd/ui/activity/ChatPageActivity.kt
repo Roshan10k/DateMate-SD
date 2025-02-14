@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.datemate_sd.R
 import com.example.datemate_sd.adapter.ChatAdapter
 import com.example.datemate_sd.databinding.ActivityChatPageBinding
 import com.example.datemate_sd.model.MessageModel
@@ -12,6 +13,7 @@ import com.example.datemate_sd.repository.MessageRepositoryImpl
 import com.example.datemate_sd.viewmodel.MessageViewModel
 import com.example.datemate_sd.viewmodel.MessageViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 class ChatPageActivity : AppCompatActivity() {
@@ -23,8 +25,9 @@ class ChatPageActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private var receiverId: String? = null
     private var senderId: String? = null
-    private var userName: String? = null // Variable to hold the username
-    private var userImage: String?=null
+    private var userName: String? = null
+    private var userImage: String? = null
+
 
     private val viewModel: MessageViewModel by viewModels {
         MessageViewModelFactory(MessageRepositoryImpl())
@@ -35,14 +38,11 @@ class ChatPageActivity : AppCompatActivity() {
         binding = ActivityChatPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Retrieve data from intent
         receiverId = intent.getStringExtra("receiverId")
         senderId = auth.currentUser?.uid
-        userName = intent.getStringExtra("userName") // Get the username passed from ProfilePageActivity
-        userImage= intent.getStringExtra("userImage")
-        Picasso.get().load(userImage).into(binding.imageView)
-
-        // Set the username in a TextView (assuming you have a TextView with id textUsername)
-        binding.textName.text = userName
+        userName = intent.getStringExtra("userName")
+        userImage = intent.getStringExtra("userImage")
 
         if (receiverId.isNullOrEmpty() || senderId.isNullOrEmpty()) {
             Log.e("ChatPageActivity", "Invalid sender or receiver ID")
@@ -50,13 +50,39 @@ class ChatPageActivity : AppCompatActivity() {
             return
         }
 
+        // Set default values if userName or userImage is null
+        if (userName.isNullOrEmpty()) {
+            userName = "User"
+        }
+
+        // Load user profile image safely
+        if (!userImage.isNullOrEmpty()) {
+            Picasso.get()
+                .load(userImage)
+                .placeholder(R.drawable.sampleperson1) // Add a placeholder image
+                .into(binding.imageView)
+        }
+
+        // Set the username in the UI
+        binding.textName.text = userName
+
+        // Use ViewModel to mark messages as read
+        viewModel.markMessagesAsRead(senderId!!, receiverId!!)
+
+
+
+
         setupRecyclerView()
         observeMessages()
 
+        // Send message on click
         binding.layoutSend.setOnClickListener { sendMessage() }
 
-        // Load previous messages
+        // Load chat messages
         viewModel.loadMessages(senderId!!, receiverId!!)
+
+        viewModel.markMessagesAsRead(senderId!!, receiverId!!)
+
     }
 
     private fun setupRecyclerView() {
@@ -72,11 +98,13 @@ class ChatPageActivity : AppCompatActivity() {
     private fun observeMessages() {
         viewModel.messages.observe(this) { newMessages ->
             Log.d("ChatPageActivity", "New messages received: $newMessages")
+
+            // Update RecyclerView
             messages.clear()
             messages.addAll(newMessages)
-            chatAdapter.submitList(messages)
+            chatAdapter.submitList(ArrayList(messages)) // Ensure immutability
 
-            // Auto-scroll to the latest message
+            // Scroll to latest message
             binding.chatRecycler.post {
                 binding.chatRecycler.scrollToPosition(messages.size - 1)
             }
@@ -91,10 +119,15 @@ class ChatPageActivity : AppCompatActivity() {
             senderId = senderId!!,
             receiverId = receiverId!!,
             message = messageText,
-            timestamp = System.currentTimeMillis()
+            timestamp = System.currentTimeMillis(),
+            isRead = false
         )
 
         viewModel.sendMessage(message)
         binding.inputMessage.text.clear()
     }
+
 }
+
+
+

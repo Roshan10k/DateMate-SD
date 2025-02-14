@@ -57,7 +57,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.airbnb.android:lottie:6.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation ("com.google.android.material:material:1.11.0") // Latest version
+
 
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
     implementation ("com.google.firebase:firebase-messaging")
