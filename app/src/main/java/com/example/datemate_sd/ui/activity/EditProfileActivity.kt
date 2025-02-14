@@ -18,7 +18,7 @@ import com.example.datemate_sd.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityProfileDetailsBinding
     private lateinit var userViewModel: UserViewModel
     private lateinit var userModel: UserModel // Store the UserModel instance
@@ -50,7 +50,9 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
             imageUtils.launchGallery(this)
         }
 
-
+        binding.continueBtnPD.setOnClickListener {
+            uploadImage()
+        }
 
 
         // Initialize the UserRepository and ViewModel
@@ -63,7 +65,7 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
         // Set up the city spinner
         val cityAdapter = ArrayAdapter(
-            this@ProfileDetailsActivity,
+            this@EditProfileActivity,
             android.R.layout.simple_dropdown_item_1line,
             cities
         )
@@ -170,7 +172,7 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         userModel.address = address
         userModel.imageurl = imageurl
 
-        val intent = Intent(this, GenderActivity::class.java)
+        val intent = Intent(this, NavigationActivity::class.java)
         intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
         startActivity(intent)
 

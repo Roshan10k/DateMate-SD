@@ -1,5 +1,6 @@
 package com.example.datemate_sd.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.FragmentSettingBinding
 import com.example.datemate_sd.repository.UserRepositoryImpl
+import com.example.datemate_sd.ui.activity.EditProfileActivity
 import com.example.datemate_sd.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
 
@@ -34,6 +36,11 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.editProfileLayout.setOnClickListener{
+            val intent = Intent(requireContext(),EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
         var repo = UserRepositoryImpl()
         userViewModel = UserViewModel(repo)
 
@@ -52,6 +59,8 @@ class SettingFragment : Fragment() {
 
 
         }
+
+
     }
 
 
