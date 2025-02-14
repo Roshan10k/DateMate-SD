@@ -81,3 +81,122 @@ class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         // Set up the date input click listener
         binding.dateInput.setOnClickListener { loadCalendar() }
 
+        // Set up the continue button click listener
+        binding.continueBtnPD.setOnClickListener {
+            uploadImage()
+//            val name = binding.nameInput.text.toString().trim()
+//            val username = binding.usernameInput.text.toString().trim()
+//            val phone = binding.phoneInput.text.toString().trim()
+//            val dob = binding.dateInput.text.toString().trim()
+//            val address = binding.addressSpinner.selectedItem.toString()
+//
+//            // Validate input fields
+//            if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()) {
+//                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
+//
+//            // Update the UserModel with the collected data
+//            userModel.name = name
+//            userModel.username = username
+//            userModel.phnNumber = phone
+//            userModel.dateOfBirth = dob
+//            userModel.address = address
+//
+//            val intent = Intent(this, GenderActivity::class.java)
+//            intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
+//            startActivity(intent)
+
+            // Call the repository to save the updated UserModel
+//            userViewModel.addUserToDatabase(userId ?: "", userModel) { isSuccess, message ->
+//            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+//            if (isSuccess) {
+//                // Pass the UserModel to the GenderActivity
+//                val intent = Intent(this, GenderActivity::class.java)
+//                intent.putExtra("User  Model", userModel) // Pass the UserModel to the next activity
+//                startActivity(intent)
+//                finish()
+//            }
+//        }
+        }
+    }
+
+    private fun loadCalendar() {
+        val c = Calendar.getInstance()
+        val dialog = DatePickerDialog(this, { _, year, month, day ->
+            binding.dateInput.setText("$year/${month + 1}/$day")
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
+        dialog.show()
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val selectedCity = cities[position]
+        Toast.makeText(this, "Selected city: $selectedCity", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        Toast.makeText(this, "No city selected", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun uploadImage() {
+//        loadingUtils.show()
+        imageUri?.let { uri ->
+            userViewModel.uploadImage(this, uri) { imageUrl ->
+                Log.d("checpoirs", imageUrl.toString())
+                if (imageUrl != null) {
+                    adduser(imageUrl)
+                } else {
+                    Log.e("Upload Error", "Failed to upload image to Cloudinary")
+                }
+            }
+        }
+    }
+
+    private fun adduser(url: String) {
+//        loadingUtils.show()
+        val name = binding.nameInput.text.toString().trim()
+        val username = binding.usernameInput.text.toString().trim()
+        val phone = binding.phoneInput.text.toString().trim()
+        val dob = binding.dateInput.text.toString().trim()
+        val address = binding.addressSpinner.selectedItem.toString()
+        val imageurl = url.toString()
+        // Validate input fields
+        if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()|| imageurl.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+        }
+        // Update the UserModel with the collected data
+        userModel.name = name
+        userModel.username = username
+        userModel.phnNumber = phone
+        userModel.dateOfBirth = dob
+        userModel.address = address
+        userModel.imageurl = imageurl
+
+        val intent = Intent(this, NavigationActivity::class.java)
+        intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
+        startActivity(intent)
+
+//        var model = UserModel(
+//            "",
+//            pname,
+//            pdes, price, url
+//        )
+//
+//        productViewModel.addProduct(model) { success, message ->
+//            if (success) {
+//                Toast.makeText(
+//                    this@AddProductActivity,
+//                    message, Toast.LENGTH_LONG
+//                ).show()
+//                finish()
+//                loadingUtils.dismiss()
+//            } else {
+//                Toast.makeText(
+//                    this@AddProductActivity,
+//                    message, Toast.LENGTH_LONG
+//                ).show()
+//                loadingUtils.dismiss()
+//            }
+//        }
+    }
+}
