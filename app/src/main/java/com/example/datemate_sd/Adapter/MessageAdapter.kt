@@ -15,7 +15,7 @@ import java.util.*
 class MessageAdapter(private var messages: List<MessageModel>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.findViewById(R.id.nameDisplayTextView)
+        val nameTextView: TextView = view.findViewById(R.id.searchNameDisplay)
         val messageTextView: TextView = view.findViewById(R.id.msgDisplayTextView)
         val timeTextView: TextView = view.findViewById(R.id.timeDisplayTextView)
         val countTextView: TextView = view.findViewById(R.id.msgCounterTextview)
