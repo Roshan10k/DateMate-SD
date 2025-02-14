@@ -149,6 +149,31 @@
                 app:layout_constraintTop_toBottomOf="@+id/locationOfUser" />
 
             <TextView
+                android:id="@+id/bornOnIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="34dp"
+                android:text="📅 Born on
+"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lookignForIcon" />
+
+
+            <TextView
+                android:id="@+id/bornOnData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="31dp"
+                android:text="Date "
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                app:layout_constraintStart_toEndOf="@+id/bornOnIcon"
+                app:layout_constraintTop_toBottomOf="@+id/lookingForData" />
+            <TextView
                 android:id="@+id/interests_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,7 +184,7 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lookignForIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/bornOnIcon" />
 
             <TextView
                 android:id="@+id/interests"
