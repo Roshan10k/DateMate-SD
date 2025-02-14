@@ -8,15 +8,17 @@
     android:background="@color/background"
     tools:context=".ui.fragment.SettingFragment">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/settingProfileImage"
-        android:layout_width="86dp"
-        android:layout_height="76dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="163dp"
         android:src="@drawable/baseline_person_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
+        app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
     <TextView
         android:id="@+id/nameSetting"
@@ -34,10 +36,11 @@
         android:id="@+id/userEmail"
         android:layout_width="170dp"
         android:layout_height="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="120dp"
         android:text="kiaraadvani12@gmail.com"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/nameSetting" />
 
     <androidx.cardview.widget.CardView
@@ -128,8 +131,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
                 android:text="Theme"
-                android:textSize="20dp"
                 android:textColor="@color/endpink"
+                android:textSize="20dp"
                 app:layout_constraintStart_toEndOf="@+id/themeImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -181,8 +184,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
                 android:text="Terms And Conditions"
-                android:textSize="20dp"
                 android:textColor="@color/endpink"
+                android:textSize="20dp"
                 app:layout_constraintStart_toEndOf="@+id/termsImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -209,6 +212,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/termsCardView">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/feedbackLayout"
             android:layout_width="match_parent"
@@ -233,8 +237,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
                 android:text="Report And Feedback"
-                android:textSize="20dp"
                 android:textColor="@color/endpink"
+                android:textSize="20dp"
                 app:layout_constraintStart_toEndOf="@+id/feedbackImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
