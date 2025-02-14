@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.activity.EditProfileActivity">
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
+    <TextView
+        android:id="@+id/addProfileHead1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Add Profile Details"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+
+    <TextView
+        android:id="@+id/addProfileHead2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Please add your profile details here"
+        android:textColor="@color/grey"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProfileHead1" />
+
+    <ImageView
+        android:id="@+id/profileImg"
+        android:layout_width="111dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProfileHead2"
+        app:srcCompat="@drawable/profileimage" />
+
+    <ImageButton
+        android:id="@+id/editBtn"
+        android:layout_width="46dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="164dp"
+        android:background="@drawable/gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProfileHead2"
+        app:srcCompat="@drawable/baseline_edit_24" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="150dp"
+        android:text="Name"
+        android:textColor="@color/endpink"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProfileHead2" />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="347dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custum_input"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
+        android:text="Username"
+        android:textSize="15dp"
+        android:textColor="@color/endpink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="347dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/custum_input"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+
+    <TextView
+        android:id="@+id/phoneTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
+        android:text="Phone Number"
+        android:textSize="15dp"
+        android:textColor="@color/endpink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
+
+    <EditText
+        android:id="@+id/phoneInput"
+        android:layout_width="347dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/custum_input"
+        android:ems="10"
+        android:inputType="number"
+        android:paddingLeft="10dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneTextView" />
+
+    <TextView
+        android:id="@+id/dateTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
+        android:text="Date of Birth"
+        android:textSize="15dp"
+        android:textColor="@color/endpink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneInput" />
+
+    <EditText
+        android:id="@+id/dateInput"
+        android:layout_width="347dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/custum_input"
+        android:ems="10"
+        android:inputType="date"
+        android:paddingLeft="10dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextview" />
+
+    <TextView
+        android:id="@+id/addressTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
+        android:text="Address"
+        android:textSize="15dp"
+        android:textColor="@color/endpink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateInput" />
+
+
+    <Spinner
+        android:id="@+id/addressSpinner"
+        android:layout_width="347dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/custum_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressTextview" />
+
+    <Button
+        android:id="@+id/continueBtnPD"
+        android:layout_width="347dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/gradient"
+        android:text="Continue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressSpinner" />
+
+    <ImageView
+        android:id="@+id/calenderImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneInput"
+        app:srcCompat="@drawable/baseline_calendar_month_24" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateInput"
+        app:srcCompat="@drawable/baseline_arrow_drop_down_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
