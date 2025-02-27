@@ -8,10 +8,12 @@ import android.os.Looper
 import android.provider.OpenableColumns
 import com.cloudinary.Cloudinary
 import com.cloudinary.utils.ObjectUtils
+import com.example.datemate_sd.model.NotificationModel
 import com.example.datemate_sd.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 import java.io.InputStream
 import java.util.concurrent.Executors
 
@@ -96,7 +98,7 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    override fun getCurrentUSer(): FirebaseUser ? {
+    override fun getCurrentUser(): FirebaseUser ? {
         return auth.currentUser
     }
 
@@ -125,7 +127,7 @@ class UserRepositoryImpl : UserRepository {
                         var Users = mutableListOf<UserModel>()
                         for (eachData in snapshot.children){
                             var model = eachData.getValue(UserModel::class.java)
-                            var currentUserId = getCurrentUSer()?.uid.toString()
+                            var currentUserId = getCurrentUser()?.uid.toString()
                             if (model != null && model.UserId!=currentUserId){
                                 Users.add(model)
                             }
@@ -196,4 +198,76 @@ class UserRepositoryImpl : UserRepository {
         }
         return fileName
     }
+
+    override fun saveUserFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            auth.currentUser?.uid?.let { uid ->
+                reference.child(uid).child("fcmToken").setValue(token)
+            }
+        }
+    }
+
+    override fun getUserFCMToken(userId: String, callback: (String?) -> Unit) {
+        reference.child(userId).child("fcmToken").get().addOnSuccessListener {
+            callback(it.value as? String)
+        }
+    }
+
+    override fun saveNotificationToDatabase(
+        userID: String,
+        message: String,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val notificationsRef = database.reference.child("notifications").child(userID)
+
+        val notificationId = notificationsRef.push().key ?: return callback(false, "Error generating ID")
+
+        val notificationData = hashMapOf(
+            "notificationId" to notificationId,
+            "message" to message,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        notificationsRef.child(notificationId).setValue(notificationData)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback(true, "Notification saved successfully")
+                } else {
+                    callback(false, it.exception?.message.toString())
+                }
+            }
+    }
+
+    override fun getNotificationForUser(
+        userID: String,
+        callback: (List<NotificationModel>?, Boolean, String) -> Unit
+    ) {
+        val notificationsRef = database.reference.child("notifications").child(userID)
+
+        notificationsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    // Create a list to store the notifications
+                    val notificationsList = mutableListOf<NotificationModel>()
+
+                    // Iterate through all the notifications for this user
+                    for (notificationSnapshot in snapshot.children) {
+                        val notification = notificationSnapshot.getValue(NotificationModel::class.java)
+                        if (notification != null) {
+                            notificationsList.add(notification)
+                        }
+                    }
+                    callback(notificationsList, true, "Notifications fetched successfully")
+                } else {
+                    callback(null, false, "No notifications found for this user")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(null, false, error.message)            }
+        })
+    }
+
+
+
 }

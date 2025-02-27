@@ -26,8 +26,8 @@ class NotificationAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val notification = notifications[position]
-        holder.title.text = notification.title
-        holder.description.text = notification.description
+        holder.title.text = "DateMate"
+        holder.description.text = notification.message
     }
 
     override fun getItemCount(): Int = notifications.size

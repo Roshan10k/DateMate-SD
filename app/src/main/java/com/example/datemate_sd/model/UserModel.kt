@@ -17,10 +17,12 @@ data class UserModel(
     var idealMatch: String = "",
     var imageurl: String = "",
     var galleryImage1: String = "",
-    var galleryImage2: String = ""
+    var galleryImage2: String = "",
+    var fcmToken: String = ""
 
     ):Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
@@ -53,6 +55,7 @@ data class UserModel(
         parcel.writeString(imageurl)
         parcel.writeString(galleryImage1)
         parcel.writeString(galleryImage2)
+        parcel.writeString(fcmToken)
     }
 
     override fun describeContents(): Int {

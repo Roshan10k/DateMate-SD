@@ -1,6 +1,7 @@
 package com.example.datemate_sd.ui.activity
 
 // NotificationActivity.kt
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,20 +11,27 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityNotificationBinding
-import com.example.datemate_sd.viewmodel.NotificationViewModel
 import com.example.datemate_sd.adapter.NotificationAdapter
+import com.example.datemate_sd.repository.UserRepositoryImpl
+import com.example.datemate_sd.ui.fragment.DashboardFragment
+import com.example.datemate_sd.viewmodel.UserViewModel
 
 class NotificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNotificationBinding
     private lateinit var notificationAdapter: NotificationAdapter
 
-    private val notificationViewModel: NotificationViewModel by viewModels()
+
+    lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
 
         // Initialize adapter with an empty list
         notificationAdapter = NotificationAdapter(this, emptyList())
@@ -34,12 +42,18 @@ class NotificationActivity : AppCompatActivity() {
         }
 
         // Observe notifications LiveData
-        notificationViewModel.notifications.observe(this, Observer { notifications ->
-            notificationAdapter.updateNotifications(notifications)
+        userViewModel.notifications.observe(this, Observer { notifications ->
+            val reversedNotifications = notifications.reversed()
+            notificationAdapter.updateNotifications(reversedNotifications)
         })
 
-        // Fetch notifications for the current user (Replace with actual user ID)
-        notificationViewModel.listenForNotifications("user_id_here")
+        val userId = userViewModel.getCurrentUser()?.uid.toString()
+        userViewModel.getNotificationsForUser(userId)
+
+        binding.backButton.setOnClickListener{
+            var intent = Intent(this@NotificationActivity, DashboardFragment::class.java)
+            startActivity(intent)
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
