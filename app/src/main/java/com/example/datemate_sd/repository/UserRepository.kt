@@ -13,6 +13,7 @@ interface UserRepository {
 
     fun forgetPassword(email: String,callback: (Boolean, String) -> Unit)
 
+
     fun addUserToDatabase(
         userID:String,
         userModel: UserModel,
@@ -35,6 +36,8 @@ interface UserRepository {
     fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit)
 
     fun getFileNameFromUri(context: Context, uri: Uri): String?
+
+
 
 
 

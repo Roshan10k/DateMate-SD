@@ -35,12 +35,14 @@ class UserRepositoryImpl : UserRepository {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val userId = auth.currentUser?.uid ?: ""
-                    callback(true,"success",userId)
+                    callback(true,"succes",userId)
                 } else {
-                    callback(false, "Registration failed", "")
+
+                    callback(false, task.exception?.message.toString(), "")
                 }
             }
     }
+
 
 
 

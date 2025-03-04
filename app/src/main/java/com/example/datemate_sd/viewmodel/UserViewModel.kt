@@ -30,6 +30,9 @@ class UserViewModel(private val repo: UserRepository) {
         repo.logout(callback)
     }
 
+
+
+
     fun editProfile(userId: String, data: MutableMap<String, Any>, callback: (Boolean, String) -> Unit) {
         repo.editProfile(userId, data, callback)
     }
@@ -37,6 +40,7 @@ class UserViewModel(private val repo: UserRepository) {
     fun getCurrentUser(): FirebaseUser? {
         return repo.getCurrentUSer()
     }
+
 
     var _users = MutableLiveData<UserModel>()
     var users  = MutableLiveData<UserModel>()
@@ -75,5 +79,6 @@ class UserViewModel(private val repo: UserRepository) {
     fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit){
         repo.uploadImage(context, imageUri, callback)
     }
+
 
 }

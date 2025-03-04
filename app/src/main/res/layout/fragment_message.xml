@@ -21,28 +21,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SearchView
-        android:id="@+id/searchView2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/search_custom"
-        android:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="parent"
+<!--    <SearchView-->
+<!--        android:id="@+id/searchView2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_marginTop="11dp"-->
+<!--        android:background="@drawable/search_custom"-->
+<!--        android:iconifiedByDefault="false"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/msgTextView" />
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/msgTextView" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
         android:layout_width="409dp"
-        android:layout_height="595dp"
+        android:layout_height="685dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView2"
+        app:layout_constraintTop_toBottomOf="@+id/msgTextView"
         tools:listitem="@layout/sample_message" />
 </androidx.constraintlayout.widget.ConstraintLayout>

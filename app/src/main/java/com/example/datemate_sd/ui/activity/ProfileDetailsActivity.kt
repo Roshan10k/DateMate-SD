@@ -71,51 +71,20 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         binding.addressSpinner.onItemSelectedListener = this
 
         // Set up the back button to navigate to the signup screen
-        binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
-            finish()
-        }
+//        binding.backBtn.setOnClickListener {
+//            startActivity(Intent(this, SignupActivity::class.java))
+//            finish()
+//        }
 
         // Set up the date input click listener
         binding.dateInput.setOnClickListener { loadCalendar() }
 
         // Set up the continue button click listener
         binding.continueBtnPD.setOnClickListener {
+            if (!validateFields()) {
+                return@setOnClickListener // Stop execution if validation fails
+            }
             uploadImage()
-//            val name = binding.nameInput.text.toString().trim()
-//            val username = binding.usernameInput.text.toString().trim()
-//            val phone = binding.phoneInput.text.toString().trim()
-//            val dob = binding.dateInput.text.toString().trim()
-//            val address = binding.addressSpinner.selectedItem.toString()
-//
-//            // Validate input fields
-//            if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()) {
-//                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
-//
-//            // Update the UserModel with the collected data
-//            userModel.name = name
-//            userModel.username = username
-//            userModel.phnNumber = phone
-//            userModel.dateOfBirth = dob
-//            userModel.address = address
-//
-//            val intent = Intent(this, GenderActivity::class.java)
-//            intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
-//            startActivity(intent)
-
-            // Call the repository to save the updated UserModel
-//            userViewModel.addUserToDatabase(userId ?: "", userModel) { isSuccess, message ->
-//            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-//            if (isSuccess) {
-//                // Pass the UserModel to the GenderActivity
-//                val intent = Intent(this, GenderActivity::class.java)
-//                intent.putExtra("User  Model", userModel) // Pass the UserModel to the next activity
-//                startActivity(intent)
-//                finish()
-//            }
-//        }
         }
     }
 
@@ -174,27 +143,43 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
         startActivity(intent)
 
-//        var model = UserModel(
-//            "",
-//            pname,
-//            pdes, price, url
-//        )
 //
-//        productViewModel.addProduct(model) { success, message ->
-//            if (success) {
-//                Toast.makeText(
-//                    this@AddProductActivity,
-//                    message, Toast.LENGTH_LONG
-//                ).show()
-//                finish()
-//                loadingUtils.dismiss()
-//            } else {
-//                Toast.makeText(
-//                    this@AddProductActivity,
-//                    message, Toast.LENGTH_LONG
-//                ).show()
-//                loadingUtils.dismiss()
-//            }
-//        }
     }
+
+    private fun validateFields(): Boolean {
+        var isValid = true
+
+        val name = binding.nameInput.text.toString().trim()
+        val username = binding.usernameInput.text.toString().trim()
+        val phone = binding.phoneInput.text.toString().trim()
+        val dob = binding.dateInput.text.toString().trim()
+
+        if (name.isEmpty()) {
+            binding.nameInput.error = "Name cannot be empty"
+            isValid = false
+        }
+
+        if (username.isEmpty()) {
+            binding.usernameInput.error = "Username cannot be empty"
+            isValid = false
+        }
+
+        if (phone.isEmpty()) {
+            binding.phoneInput.error = "Phone number cannot be empty"
+            isValid = false
+        }
+
+        if (dob.isEmpty()) {
+            binding.dateInput.error = "Date of birth cannot be empty"
+            isValid = false
+        }
+
+        if (imageUri == null) {
+            Toast.makeText(this, "Please upload a profile image", Toast.LENGTH_SHORT).show()
+            isValid = false
+        }
+
+        return isValid
+    }
+
 }

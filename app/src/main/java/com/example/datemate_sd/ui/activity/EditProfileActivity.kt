@@ -10,7 +10,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.datemate_sd.databinding.ActivityProfileDetailsBinding
+import com.example.datemate_sd.databinding.ActivityEditProfileBinding
+
 import com.example.datemate_sd.model.UserModel
 import com.example.datemate_sd.repository.UserRepositoryImpl
 import com.example.datemate_sd.utils.ImageUtils
@@ -19,7 +20,7 @@ import com.squareup.picasso.Picasso
 import java.util.*
 
 class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private lateinit var binding: ActivityProfileDetailsBinding
+    private lateinit var binding: ActivityEditProfileBinding
     private lateinit var userViewModel: UserViewModel
     private lateinit var userModel: UserModel // Store the UserModel instance
     private var userId: String? = null
@@ -35,7 +36,7 @@ class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityProfileDetailsBinding.inflate(layoutInflater)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         imageUtils = ImageUtils(this)
@@ -69,14 +70,18 @@ class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             android.R.layout.simple_dropdown_item_1line,
             cities
         )
+
+        binding.backBtn.setOnClickListener {
+            // Close the EditProfileActivity and go back to the SettingFragment
+            val intent = Intent(this@EditProfileActivity, NavigationActivity::class.java)
+            startActivity(intent)
+            finish()  // Close the EditProfileActivity
+        }
         binding.addressSpinner.adapter = cityAdapter
         binding.addressSpinner.onItemSelectedListener = this
 
         // Set up the back button to navigate to the signup screen
-        binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
-            finish()
-        }
+
 
         // Set up the date input click listener
         binding.dateInput.setOnClickListener { loadCalendar() }

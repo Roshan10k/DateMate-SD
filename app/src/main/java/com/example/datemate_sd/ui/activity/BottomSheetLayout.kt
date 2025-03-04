@@ -1,28 +1,46 @@
 package com.example.datemate_sd.ui.activity
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.datemate_sd.R
+import com.example.datemate_sd.databinding.ActivityProfileDetailsBinding
+import com.example.datemate_sd.databinding.BottomSheetLayoutBinding
 
 class BottomSheetLayout : AppCompatActivity() {
-
+    private lateinit var binding: BottomSheetLayoutBinding
     private lateinit var interestedInMan: Button
     private lateinit var interestedInWoman: Button
 
 
 
+    private val cities = arrayOf(
+        "Kathmandu", "Bhaktapur", "Lalitpur", "Pokhara",
+        "Butwal", "Janakpur", "Dharan", "Mahendranagar", "Biratnagar"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.bottom_sheet_layout)
+        binding= BottomSheetLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Initialize buttons
-        interestedInMan = findViewById(R.id.interestedInMan)
-        interestedInWoman = findViewById(R.id.interestedInWoman)
+        val interestedInMan = binding.interestedInMan
+        val interestedInWoman = binding.interestedInWoman
+
+
+
+        val cityAdapter = ArrayAdapter(
+            this@BottomSheetLayout,
+            android.R.layout.simple_dropdown_item_1line,
+            cities
+        )
+        binding.addressSpinner.adapter = cityAdapter
 
 
         // Set up button click listeners

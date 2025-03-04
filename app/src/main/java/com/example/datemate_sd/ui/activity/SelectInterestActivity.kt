@@ -20,12 +20,17 @@ class SelectInterestActivity : AppCompatActivity() {
     private lateinit var userRepository: UserRepository
     private lateinit var userModel: UserModel // Store the UserModel instance
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         binding = ActivitySelectInterestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         userRepository = UserRepositoryImpl()
         userModel = intent.getParcelableExtra("User_Model") ?: UserModel() // Retrieve UserModel
@@ -44,7 +49,6 @@ class SelectInterestActivity : AppCompatActivity() {
                 handleButtonClick(button)
             }
         }
-
         // Handle "Continue" button click
         binding.continueButton.setOnClickListener {
             handleContinueClick()
