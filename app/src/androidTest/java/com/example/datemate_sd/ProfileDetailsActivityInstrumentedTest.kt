@@ -27,6 +27,17 @@ class ProfileDetailsActivityInstrumentedTest {
 
     }
 
+    @Test
+    fun testTitleAndSubtitleDisplay() {
+        onView(withId(R.id.addProfileHead1))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("Add Profile Details")))
+
+        onView(withId(R.id.addProfileHead2))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("Please add your profile details here")))
+    }
+
 
 
 
