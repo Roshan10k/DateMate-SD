@@ -97,7 +97,20 @@ class ProfileDetailsActivityInstrumentedTest {
             .check(matches(withText(testDate)))
     }
 
+    @Test
+    fun testAddressSpinnerSelection() {
+        val testAddress = "Kathmandu"
 
+        onView(withId(R.id.addressSpinner))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        onView(withText(testAddress))
+            .perform(click())
+
+
+        onView(withId(R.id.addressSpinner))
+            .check(matches(withSpinnerText(testAddress)))
+    }
 
 
 }
