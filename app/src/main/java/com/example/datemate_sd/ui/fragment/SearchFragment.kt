@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.datemate_sd.R
-import com.example.datemate_sd.Adapter.UserAdapter
+import com.example.datemate_sd.adapter.UserAdapter
 import com.example.datemate_sd.databinding.FragmentSearchBinding
 import com.example.datemate_sd.model.UserModel
 import com.example.datemate_sd.repository.UserRepositoryImpl
