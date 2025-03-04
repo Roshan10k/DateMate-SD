@@ -112,5 +112,12 @@ class ProfileDetailsActivityInstrumentedTest {
             .check(matches(withSpinnerText(testAddress)))
     }
 
+    @Test
+    fun testContinueButtonClick() {
+        onView(withId(R.id.continueBtnPD))
+            .check(matches(isDisplayed()))
+            .perform(click())
 
+
+    }
 }
