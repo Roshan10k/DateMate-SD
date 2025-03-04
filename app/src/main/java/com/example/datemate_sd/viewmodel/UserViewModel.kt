@@ -35,14 +35,6 @@ class UserViewModel(private val repo: UserRepository) {
         repo.logout(callback)
     }
 
-    fun editProfile(
-        userId: String,
-        data: MutableMap<String, Any>,
-        callback: (Boolean, String) -> Unit
-    ) {
-        repo.editProfile(userId, data, callback)
-    }
-
     fun getCurrentUser(): FirebaseUser? {
         return repo.getCurrentUser()
     }
@@ -91,8 +83,8 @@ class UserViewModel(private val repo: UserRepository) {
         repo.getUserFCMToken(userId, callback)
     }
 
-    fun saveNotificationToDatabase(userID: String,message : String,callback: (Boolean, String) -> Unit){
-        repo.saveNotificationToDatabase(userID,message,callback)
+    fun saveNotificationToDatabase(userID: String, likerId: String,message : String,callback: (Boolean, String) -> Unit){
+        repo.saveNotificationToDatabase(userID,likerId,message,callback)
     }
 
     // Notification-related functions
@@ -107,6 +99,19 @@ class UserViewModel(private val repo: UserRepository) {
             }
         }
     }
+
+    fun saveLikes(userID: String,likerId: String, callback: (Boolean, String) -> Unit){
+        repo.saveLikes(userID,likerId,callback)
+    }
+
+    fun checkMutualLikes(userID: String,likerId: String,callback: (Boolean, String) -> Unit){
+        repo.checkMutualLikes(userID,likerId,callback)
+    }
+
+    fun updateProfile(userId: String, data : MutableMap<String, Any> ,callback: (Boolean, String) -> Unit){
+        repo.updateProfile(userId,data,callback)
+    }
+
 
 
 }

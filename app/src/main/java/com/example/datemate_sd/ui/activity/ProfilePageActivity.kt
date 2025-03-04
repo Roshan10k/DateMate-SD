@@ -53,8 +53,10 @@ class ProfilePageActivity : AppCompatActivity() {
 
 
         var receiverFCMToken: String? = null
+        var likedId: String? = null
+        val likerId = userViewModel.getCurrentUser()?.uid.toString()
 
-        userViewModel.users.observe(this){
+        userViewModel.users.observe(this) {
             binding.nameText.setText(it?.name.toString())
             binding.textProfession.setText(it?.gender.toString())
             Picasso.get()
@@ -75,11 +77,11 @@ class ProfilePageActivity : AppCompatActivity() {
             binding.bornOnData.setText(it?.dateOfBirth.toString())
 
             receiverFCMToken = it?.fcmToken
+            likedId = it?.UserId
         }
 
 
-
-        binding.backBtn.setOnClickListener{
+        binding.backBtn.setOnClickListener {
             val intent = Intent(this@ProfilePageActivity, NavigationActivity::class.java)
             startActivity(intent)
 
@@ -90,7 +92,10 @@ class ProfilePageActivity : AppCompatActivity() {
             val intent = Intent(this@ProfilePageActivity, ChatPageActivity::class.java)
             intent.putExtra("receiverId", userId)
             intent.putExtra("userName", userViewModel.users.value?.name)  // Pass user's name
-            intent.putExtra("userImage", userViewModel.users.value?.imageurl)  // Pass user's profile image URL
+            intent.putExtra(
+                "userImage",
+                userViewModel.users.value?.imageurl
+            )  // Pass user's profile image URL
             startActivity(intent)
         }
 
@@ -98,63 +103,95 @@ class ProfilePageActivity : AppCompatActivity() {
 
         binding.likeBtn.setOnClickListener {
             if (isLiked) {
-                binding.likeBtn.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
+                binding.likeBtn.imageTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
                 Toast.makeText(this, "Unliked!", Toast.LENGTH_SHORT).show()
                 isLiked = false
             } else {
-                binding.likeBtn.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.endpink))
+                binding.likeBtn.imageTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.endpink))
                 Toast.makeText(this, "Liked!", Toast.LENGTH_SHORT).show()
-                sendNotification(receiverFCMToken.toString())
+                sendNotification(receiverFCMToken.toString(),likedId.toString())
+                userViewModel.saveLikes(userId, likerId) { success, message ->
+                }
+                userViewModel.checkMutualLikes(userId, likerId) { success, message ->
+                    if (success) {
+                        val intent = Intent(this@ProfilePageActivity, ItsMatchActivity::class.java)
+                        intent.putExtra("User", likerId)
+                        intent.putExtra("LikedId", likedId)
+                        intent.putExtra(
+                            "userName",
+                            userViewModel.users.value?.name
+                        )  // Pass user's name
+                        intent.putExtra(
+                            "userImage",
+                            userViewModel.users.value?.imageurl
+                        )  // Pass user's profile image URL
+                        startActivity(intent)
+                    }
+                }
                 isLiked = true
             }
         }
 
     }
 
-    private fun sendNotification(receiverToken: String){
+    private fun sendNotification(receiverToken: String, likedId: String) {
         val userID = userViewModel.getCurrentUser()?.uid.toString()
+
+        // Fetch the current user data
         FirebaseDatabase.getInstance().getReference("users").child(userID)
             .get()
             .addOnSuccessListener { snapshot ->
                 val userName = snapshot.child("name").value.toString()
+                val likedName = snapshot.child("name").value.toString()
+                val likedImageUrl = snapshot.child("imageurl").value.toString()
 
-            val notification = Notification(
-                message = NotificationData(
-                    token = receiverToken,
-                    hashMapOf(
-                        "title" to "DateMate",
-                        "body" to "$userName liked your profile ❤\uFE0F "
-                    )
-                )
-            )
+                // Fetch the liked user's data using likedId
+                FirebaseDatabase.getInstance().getReference("users").child(likedId) // Liked user
+                    .get()
+                    .addOnSuccessListener { likedSnapshot ->
 
-            NotificationApi.create().sendNotification(notification)
-                .enqueue(object : retrofit2.Callback<Notification> {
-                    override fun onResponse(
-                        p0: Call<Notification?>,
-                        p1: Response<Notification?>
-                    ) {
-                        Toast.makeText(
-                            this@ProfilePageActivity,
-                            "Notification send",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        val notification = Notification(
+                            message = NotificationData(
+                                token = receiverToken,
+                                hashMapOf(
+                                    "title" to "DateMate",
+                                    "body" to "$userName liked your profile ❤\uFE0F",
+                                    "LikerId" to userID,
+                                    "LikedId" to userID, // Pass the likedId
+                                    "LikedName" to likedName, // Pass the liked user's name
+                                    "LikedImage" to likedImageUrl // Pass the liked user's image URL
+                                )
+                            )
+                        )
+
+                        NotificationApi.create().sendNotification(notification)
+                            .enqueue(object : retrofit2.Callback<Notification> {
+                                override fun onResponse(
+                                    p0: Call<Notification?>,
+                                    p1: Response<Notification?>
+                                ) {
+                                    Toast.makeText(
+                                        this@ProfilePageActivity,
+                                        "Notification sent",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+
+                                override fun onFailure(
+                                    p0: Call<Notification?>,
+                                    p1: Throwable
+                                ) {
+                                    Toast.makeText(
+                                        this@ProfilePageActivity,
+                                        "Error: ${p1.message}",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            })
                     }
-
-                    override fun onFailure(
-                        p0: Call<Notification?>,
-                        p1: Throwable
-                    ) {
-                        Toast.makeText(
-                            this@ProfilePageActivity,
-                            "error: ${p1.message}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                })
-
-        }
+            }
     }
 }
 

@@ -26,6 +26,7 @@ import java.util.Random
 import android.Manifest
 import android.widget.Toast
 import com.example.datemate_sd.repository.UserRepositoryImpl
+import com.example.datemate_sd.ui.activity.ItsMatchActivity
 import com.example.datemate_sd.viewmodel.UserViewModel
 import com.google.firebase.firestore.auth.User
 
@@ -47,9 +48,14 @@ class NotificationService : FirebaseMessagingService() {
         userViewModel = UserViewModel(repo)
 
         val currentUserId = userViewModel.getCurrentUser()?.uid.toString()
+        val likerId = message.data["LikerId"] ?: ""
+        val likedId = message.data["LikedId"] ?: ""
+        val userName = message.data["LikedName"] ?: ""
+        val userImage = message.data["LikedImage"] ?: ""
+
 
         if (currentUserId!= null){
-            userViewModel.saveNotificationToDatabase(currentUserId,message.data["body"] ?: ""){success , message ->
+            userViewModel.saveNotificationToDatabase(currentUserId,likerId,message.data["body"] ?: ""){success , message ->
                 if (success){
                     Toast.makeText(applicationContext,message, Toast.LENGTH_LONG).show()
                 }else{
@@ -58,6 +64,23 @@ class NotificationService : FirebaseMessagingService() {
 
             }
         }
+        // Check if mutual likes exist before opening ProfilePageActivity
+        userViewModel.checkMutualLikes(currentUserId,likerId) { isMutual, message ->
+            if (isMutual) {
+                // If mutual like exists, open ProfilePageActivity
+                val intent = Intent(this@NotificationService, ItsMatchActivity::class.java)
+                intent.putExtra("User", likerId)
+                intent.putExtra("LikedId", likedId)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // Ensure activity is started correctly
+                startActivity(intent)
+            } else {
+                // Handle case when mutual like doesn't exist
+                Toast.makeText(this@NotificationService, "No mutual like found", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()

@@ -1,6 +1,7 @@
 package com.example.datemate_sd.repository
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Handler
@@ -10,6 +11,7 @@ import com.cloudinary.Cloudinary
 import com.cloudinary.utils.ObjectUtils
 import com.example.datemate_sd.model.NotificationModel
 import com.example.datemate_sd.model.UserModel
+import com.example.datemate_sd.ui.activity.ItsMatchActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -48,18 +50,6 @@ class UserRepositoryImpl : UserRepository {
 
 
     override fun addUserToDatabase(userID: String, userModel: UserModel, callback: (Boolean, String) -> Unit) {
-//        val userMap = hashMapOf<String, Any>(
-//            "emailAddress" to userModel.emailAddress,
-//            "name" to userModel.name,
-//            "username" to userModel.username,
-//            "phnNumber" to userModel.phnNumber,
-//            "dateOfBirth" to userModel.dateOfBirth,
-//            "address" to userModel.address,
-//            "gender" to userModel.gender,
-//            "interestedIn" to userModel.interestedIn,
-//            "idealMatch" to userModel.idealMatch
-//        )
-
         reference.child(userID).setValue(userModel).addOnCompleteListener {
             if (it.isSuccessful) {
                 callback(true, "User  added to database successfully")
@@ -79,22 +69,26 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
+    override fun updateProfile(
+        userId: String,
+        data: MutableMap<String, Any>,
+        callback: (Boolean, String) -> Unit
+    ) {
+        reference.child(userId).updateChildren(data).addOnCompleteListener{
+            if (it.isSuccessful){
+                callback(true,"Profile updated successfully")
+            }else{
+                callback(false,"${it.exception?.message}")
+            }
+        }
+    }
+
     override fun logout(callback: (Boolean, String) -> Unit) {
         try {
             auth.signOut()
             callback(true, "Logout successful")
         } catch (e: Exception) {
             callback(false, e.message.toString())
-        }
-    }
-
-    override fun editProfile(userId: String, data: MutableMap<String, Any>, callback: (Boolean, String) -> Unit) {
-        reference.child(userId).updateChildren(data).addOnCompleteListener {
-            if (it.isSuccessful) {
-                callback(true, "Profile details edited successfully")
-            } else {
-                callback(false, it.exception?.message.toString())
-            }
         }
     }
 
@@ -215,15 +209,16 @@ class UserRepositoryImpl : UserRepository {
 
     override fun saveNotificationToDatabase(
         userID: String,
+        likerId: String,
         message: String,
         callback: (Boolean, String) -> Unit
     ) {
         val notificationsRef = database.reference.child("notifications").child(userID)
-
         val notificationId = notificationsRef.push().key ?: return callback(false, "Error generating ID")
 
         val notificationData = hashMapOf(
             "notificationId" to notificationId,
+            "likerId" to likerId,
             "message" to message,
             "timestamp" to System.currentTimeMillis()
         )
@@ -237,6 +232,52 @@ class UserRepositoryImpl : UserRepository {
                 }
             }
     }
+
+    override fun saveLikes(
+        userID: String,
+        likerId: String,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val database = FirebaseDatabase.getInstance().reference
+        val likeRef = database.child("likes").child(userID).child(likerId)
+
+        likeRef.setValue(true) { error, _ ->
+            if (error != null) {
+                callback(false, "Failed to save like: ${error.message}")
+            } else {
+                callback(true, "Like saved successfully")
+            }
+        }
+    }
+    override fun checkMutualLikes(
+        userID: String,
+        likerId: String,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val database = FirebaseDatabase.getInstance().reference
+        val userLikesRef = database.child("likes").child(userID).child(likerId)
+        val likerLikesRef = database.child("likes").child(likerId).child(userID)
+
+        // Check if both users have liked each other
+        userLikesRef.get().addOnCompleteListener { userLikeTask ->
+            if (userLikeTask.isSuccessful && userLikeTask.result.exists()) {
+                likerLikesRef.get().addOnCompleteListener { likerLikeTask ->
+                    if (likerLikeTask.isSuccessful && likerLikeTask.result.exists()) {
+                        // Both users have liked each other, mutual like exists
+                        callback(true, "Mutual like found")
+                    } else {
+                        // No mutual like from the liker to the user
+                        callback(false, "No mutual like found from $likerId to $userID")
+                    }
+                }
+            } else {
+                // No like from user to the liker
+                callback(false, "No like found from $userID to $likerId")
+            }
+        }
+    }
+
+
 
     override fun getNotificationForUser(
         userID: String,
@@ -267,6 +308,8 @@ class UserRepositoryImpl : UserRepository {
                 callback(null, false, error.message)            }
         })
     }
+
+
 
 
 

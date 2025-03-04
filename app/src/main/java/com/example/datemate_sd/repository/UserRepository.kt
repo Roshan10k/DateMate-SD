@@ -14,6 +14,8 @@ interface UserRepository {
 
     fun forgetPassword(email: String,callback: (Boolean, String) -> Unit)
 
+    fun updateProfile(userId: String, data : MutableMap<String, Any> ,callback: (Boolean, String) -> Unit)
+
     fun addUserToDatabase(
         userID:String,
         userModel: UserModel,
@@ -22,7 +24,6 @@ interface UserRepository {
 
     fun logout(callback: (Boolean, String) -> Unit)
 
-    fun editProfile(userId:String,data :MutableMap<String,Any>,callback:(Boolean,String) ->Unit)
 
     fun getCurrentUser(): FirebaseUser?
 
@@ -41,7 +42,11 @@ interface UserRepository {
 
     fun getUserFCMToken(userId: String, callback: (String?) -> Unit)
 
-    fun saveNotificationToDatabase(userID: String,message : String,callback: (Boolean, String) -> Unit)
+    fun saveNotificationToDatabase(userID: String, likerId: String, message : String, callback: (Boolean, String) -> Unit)
+
+    fun saveLikes(userID: String,likerId: String, callback: (Boolean, String) -> Unit)
+
+    fun checkMutualLikes(userID: String,likerId: String,callback: (Boolean, String) -> Unit)
 
     fun getNotificationForUser(userID: String, callback: (List<NotificationModel>?, Boolean, String) -> Unit)
 

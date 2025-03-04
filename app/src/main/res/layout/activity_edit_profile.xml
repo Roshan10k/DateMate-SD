@@ -9,7 +9,7 @@
     tools:context=".ui.activity.EditProfileActivity">
 
     <ImageButton
-        android:id="@+id/backBtn"
+        android:id="@+id/editbackBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -26,12 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
-        android:text="Add Profile Details"
+        android:text="Edit Profile Details"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/editbackBtn" />
 
     <TextView
         android:id="@+id/addProfileHead2"
@@ -39,14 +39,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:text="Please add your profile details here"
+        android:text="Please edit your profile details here"
         android:textColor="@color/grey"
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addProfileHead1" />
 
     <ImageView
-        android:id="@+id/profileImg"
+        android:id="@+id/editprofileImg"
         android:layout_width="111dp"
         android:layout_height="85dp"
         android:layout_marginStart="148dp"
@@ -56,7 +56,7 @@
         app:srcCompat="@drawable/profileimage" />
 
     <ImageButton
-        android:id="@+id/editBtn"
+        android:id="@+id/editImageBtn"
         android:layout_width="46dp"
         android:layout_height="43dp"
         android:layout_marginTop="75dp"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addProfileHead2" />
 
     <EditText
-        android:id="@+id/nameInput"
+        android:id="@+id/editNameInput"
         android:layout_width="347dp"
         android:layout_height="47dp"
         android:layout_marginStart="32dp"
@@ -102,10 +102,10 @@
         android:textSize="15dp"
         android:textColor="@color/endpink"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editNameInput" />
 
     <EditText
-        android:id="@+id/usernameInput"
+        android:id="@+id/editUsernameInput"
         android:layout_width="347dp"
         android:layout_height="47dp"
         android:layout_marginTop="5dp"
@@ -128,10 +128,10 @@
         android:textSize="15dp"
         android:textColor="@color/endpink"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editUsernameInput" />
 
     <EditText
-        android:id="@+id/phoneInput"
+        android:id="@+id/editPhoneInput"
         android:layout_width="347dp"
         android:layout_height="47dp"
         android:layout_marginTop="5dp"
@@ -154,10 +154,10 @@
         android:textSize="15dp"
         android:textColor="@color/endpink"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editPhoneInput" />
 
     <EditText
-        android:id="@+id/dateInput"
+        android:id="@+id/editDateInput"
         android:layout_width="347dp"
         android:layout_height="47dp"
         android:layout_marginTop="5dp"
@@ -180,29 +180,29 @@
         android:textSize="15dp"
         android:textColor="@color/endpink"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editDateInput" />
 
 
     <Spinner
-        android:id="@+id/addressSpinner"
+        android:id="@+id/editAddressSpinner"
         android:layout_width="347dp"
         android:layout_height="47dp"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/custum_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressTextview" />
 
     <Button
-        android:id="@+id/continueBtnPD"
+        android:id="@+id/updateBtnPD"
         android:layout_width="347dp"
         android:layout_height="56dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="35dp"
         android:background="@drawable/gradient"
-        android:text="Continue"
+        android:text="Update"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/editAddressSpinner" />
 
     <ImageView
         android:id="@+id/calenderImage"
@@ -211,7 +211,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneInput"
+        app:layout_constraintTop_toBottomOf="@+id/editPhoneInput"
         app:srcCompat="@drawable/baseline_calendar_month_24" />
 
     <ImageView
@@ -221,8 +221,9 @@
         android:layout_marginTop="63dp"
         android:layout_marginEnd="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateInput"
+        app:layout_constraintTop_toBottomOf="@+id/editDateInput"
         app:srcCompat="@drawable/baseline_arrow_drop_down_24" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
