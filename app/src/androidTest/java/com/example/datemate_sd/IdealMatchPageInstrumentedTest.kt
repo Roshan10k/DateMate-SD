@@ -58,5 +58,14 @@ class IdealMatchPageInstrumentedTest {
             .perform(click())
     }
 
+    @Test
+    fun testTitleAndSubtitleDisplay() {
+        onView(withId(R.id.title))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("Ideal Match")))
 
+        onView(withId(R.id.subtitle))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("What do you wish to discover here on DateMate?")))
+    }
 }
