@@ -85,7 +85,17 @@ class ProfileDetailsActivityInstrumentedTest {
             .check(matches(withText(testPhone)))
     }
 
+    @Test
+    fun testDateInputField() {
+        val testDate = "01/01/1990"
 
+        onView(withId(R.id.dateInput))
+            .check(matches(isDisplayed()))
+            .perform(typeText(testDate), closeSoftKeyboard())
+
+        onView(withId(R.id.dateInput))
+            .check(matches(withText(testDate)))
+    }
 
 
 
