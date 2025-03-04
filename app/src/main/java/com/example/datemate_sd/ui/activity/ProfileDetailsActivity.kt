@@ -46,12 +46,9 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
             }
         }
 
-        binding.editBtn.setOnClickListener {
+        binding.ImageBtn.setOnClickListener {
             imageUtils.launchGallery(this)
         }
-
-
-
 
         // Initialize the UserRepository and ViewModel
         val repo = UserRepositoryImpl()
@@ -67,23 +64,20 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
             android.R.layout.simple_dropdown_item_1line,
             cities
         )
-        binding.addressSpinner.adapter = cityAdapter
-        binding.addressSpinner.onItemSelectedListener = this
+        binding.AddressSpinner.adapter = cityAdapter
+        binding.AddressSpinner.onItemSelectedListener = this
 
         // Set up the back button to navigate to the signup screen
-//        binding.backBtn.setOnClickListener {
-//            startActivity(Intent(this, SignupActivity::class.java))
-//            finish()
-//        }
+        binding.backBtn.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
+            finish()
+        }
 
         // Set up the date input click listener
-        binding.dateInput.setOnClickListener { loadCalendar() }
+        binding.DateInput.setOnClickListener { loadCalendar() }
 
         // Set up the continue button click listener
         binding.continueBtnPD.setOnClickListener {
-            if (!validateFields()) {
-                return@setOnClickListener // Stop execution if validation fails
-            }
             uploadImage()
         }
     }
@@ -91,7 +85,7 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     private fun loadCalendar() {
         val c = Calendar.getInstance()
         val dialog = DatePickerDialog(this, { _, year, month, day ->
-            binding.dateInput.setText("$year/${month + 1}/$day")
+            binding.DateInput.setText("$year/${month + 1}/$day")
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
         dialog.show()
     }
@@ -121,11 +115,11 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
     private fun adduser(url: String) {
 //        loadingUtils.show()
-        val name = binding.nameInput.text.toString().trim()
-        val username = binding.usernameInput.text.toString().trim()
-        val phone = binding.phoneInput.text.toString().trim()
-        val dob = binding.dateInput.text.toString().trim()
-        val address = binding.addressSpinner.selectedItem.toString()
+        val name = binding.nameTextView.text.toString().trim()
+        val username = binding.usernameTextView.text.toString().trim()
+        val phone = binding.phoneTextView.text.toString().trim()
+        val dob = binding.DateInput.text.toString().trim()
+        val address = binding.AddressSpinner.selectedItem.toString()
         val imageurl = url.toString()
         // Validate input fields
         if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()|| imageurl.isEmpty()) {
@@ -143,43 +137,5 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
         startActivity(intent)
 
-//
     }
-
-    private fun validateFields(): Boolean {
-        var isValid = true
-
-        val name = binding.nameInput.text.toString().trim()
-        val username = binding.usernameInput.text.toString().trim()
-        val phone = binding.phoneInput.text.toString().trim()
-        val dob = binding.dateInput.text.toString().trim()
-
-        if (name.isEmpty()) {
-            binding.nameInput.error = "Name cannot be empty"
-            isValid = false
-        }
-
-        if (username.isEmpty()) {
-            binding.usernameInput.error = "Username cannot be empty"
-            isValid = false
-        }
-
-        if (phone.isEmpty()) {
-            binding.phoneInput.error = "Phone number cannot be empty"
-            isValid = false
-        }
-
-        if (dob.isEmpty()) {
-            binding.dateInput.error = "Date of birth cannot be empty"
-            isValid = false
-        }
-
-        if (imageUri == null) {
-            Toast.makeText(this, "Please upload a profile image", Toast.LENGTH_SHORT).show()
-            isValid = false
-        }
-
-        return isValid
-    }
-
 }

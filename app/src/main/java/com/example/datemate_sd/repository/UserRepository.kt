@@ -2,6 +2,7 @@ package com.example.datemate_sd.repository
 
 import android.content.Context
 import android.net.Uri
+import com.example.datemate_sd.model.NotificationModel
 import com.example.datemate_sd.model.UserModel
 import com.google.firebase.auth.FirebaseUser
 
@@ -13,6 +14,7 @@ interface UserRepository {
 
     fun forgetPassword(email: String,callback: (Boolean, String) -> Unit)
 
+    fun updateProfile(userId: String, data : MutableMap<String, Any> ,callback: (Boolean, String) -> Unit)
 
     fun addUserToDatabase(
         userID:String,
@@ -22,9 +24,8 @@ interface UserRepository {
 
     fun logout(callback: (Boolean, String) -> Unit)
 
-    fun editProfile(userId:String,data :MutableMap<String,Any>,callback:(Boolean,String) ->Unit)
 
-    fun getCurrentUSer(): FirebaseUser?
+    fun getCurrentUser(): FirebaseUser?
 
     fun getUserFromDatabase(
         userId: String,
@@ -37,7 +38,17 @@ interface UserRepository {
 
     fun getFileNameFromUri(context: Context, uri: Uri): String?
 
+    fun saveUserFCMToken()
 
+    fun getUserFCMToken(userId: String, callback: (String?) -> Unit)
+
+    fun saveNotificationToDatabase(userID: String, likerId: String, message : String, callback: (Boolean, String) -> Unit)
+
+    fun saveLikes(userID: String,likerId: String, callback: (Boolean, String) -> Unit)
+
+    fun checkMutualLikes(userID: String,likerId: String,callback: (Boolean, String) -> Unit)
+
+    fun getNotificationForUser(userID: String, callback: (List<NotificationModel>?, Boolean, String) -> Unit)
 
 
 

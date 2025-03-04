@@ -9,60 +9,76 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.ActivityEditProfileBinding
-
-import com.example.datemate_sd.model.UserModel
 import com.example.datemate_sd.repository.UserRepositoryImpl
+import com.example.datemate_sd.ui.activity.ProfileDetailsActivity
 import com.example.datemate_sd.utils.ImageUtils
 import com.example.datemate_sd.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
-import java.util.*
+import java.util.Calendar
 
-class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private lateinit var binding: ActivityEditProfileBinding
-    private lateinit var userViewModel: UserViewModel
-    private lateinit var userModel: UserModel // Store the UserModel instance
-    private var userId: String? = null
-
+class EditProfileActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener {
+    lateinit var userViewModel: UserViewModel
+    lateinit var binding: ActivityEditProfileBinding
     lateinit var imageUtils: ImageUtils
-
+    private var currentImageUrl: String? = null
     var imageUri: Uri? = null
-
     private val cities = arrayOf(
         "Kathmandu", "Bhaktapur", "Lalitpur", "Pokhara",
         "Butwal", "Janakpur", "Dharan", "Mahendranagar", "Biratnagar"
     )
 
+    var userId: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
+
+        userId = userViewModel.getCurrentUser()?.uid ?: ""
+
+        userViewModel.getUserFromDatabase(userId)
+        userViewModel.users.observe(this){
+            Picasso.get()
+                .load(it?.imageurl)
+                .into(binding.editprofileImg)
+
+            currentImageUrl = it?.imageurl
+            binding.editNameInput.setText(it?.name.toString())
+            binding.editUsernameInput.setText(it?.username.toString())
+            binding.editPhoneInput.setText(it?.phnNumber.toString())
+            binding.editDateInput.setText(it?.dateOfBirth.toString())
+            it?.address?.let { address ->
+                val adapter = binding.editAddressSpinner.adapter as? ArrayAdapter<String>
+                adapter?.let {
+                    val position = it.getPosition(address)
+                    if (position >= 0) {
+                        binding.editAddressSpinner.setSelection(position)
+                    }
+                }
+            }
+        }
 
         imageUtils = ImageUtils(this)
         imageUtils.registerActivity { url ->
             url.let { it ->
                 imageUri = it
-                Picasso.get().load(it).into(binding.profileImg)
+                Picasso.get().load(it).into(binding.editprofileImg)
             }
         }
 
-        binding.editBtn.setOnClickListener {
+        binding.editImageBtn.setOnClickListener {
             imageUtils.launchGallery(this)
         }
-
-        binding.continueBtnPD.setOnClickListener {
-            uploadImage()
-        }
-
-
-        // Initialize the UserRepository and ViewModel
-        val repo = UserRepositoryImpl()
-        userViewModel = UserViewModel(repo)
-
-        // Retrieve the UserModel from the intent
-        userModel = intent.getParcelableExtra("User_Model") ?: UserModel()
-        userId = userModel.UserId // Get the userId from the UserModel
 
         // Set up the city spinner
         val cityAdapter = ArrayAdapter(
@@ -71,65 +87,32 @@ class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             cities
         )
 
-        binding.backBtn.setOnClickListener {
-            // Close the EditProfileActivity and go back to the SettingFragment
-            val intent = Intent(this@EditProfileActivity, NavigationActivity::class.java)
-            startActivity(intent)
-            finish()  // Close the EditProfileActivity
+        binding.editAddressSpinner.adapter = cityAdapter
+        binding.editAddressSpinner.onItemSelectedListener = this
+
+
+        binding.editbackBtn.setOnClickListener {
+            finish()
         }
-        binding.addressSpinner.adapter = cityAdapter
-        binding.addressSpinner.onItemSelectedListener = this
 
-        // Set up the back button to navigate to the signup screen
+        binding.editDateInput.setOnClickListener { loadCalendar() }
 
 
-        // Set up the date input click listener
-        binding.dateInput.setOnClickListener { loadCalendar() }
-
-        // Set up the continue button click listener
-        binding.continueBtnPD.setOnClickListener {
+        binding.updateBtnPD.setOnClickListener{
+            Log.d("foredit","I am here ")
             uploadImage()
-//            val name = binding.nameInput.text.toString().trim()
-//            val username = binding.usernameInput.text.toString().trim()
-//            val phone = binding.phoneInput.text.toString().trim()
-//            val dob = binding.dateInput.text.toString().trim()
-//            val address = binding.addressSpinner.selectedItem.toString()
-//
-//            // Validate input fields
-//            if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()) {
-//                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
-//
-//            // Update the UserModel with the collected data
-//            userModel.name = name
-//            userModel.username = username
-//            userModel.phnNumber = phone
-//            userModel.dateOfBirth = dob
-//            userModel.address = address
-//
-//            val intent = Intent(this, GenderActivity::class.java)
-//            intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
-//            startActivity(intent)
+        }
 
-            // Call the repository to save the updated UserModel
-//            userViewModel.addUserToDatabase(userId ?: "", userModel) { isSuccess, message ->
-//            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-//            if (isSuccess) {
-//                // Pass the UserModel to the GenderActivity
-//                val intent = Intent(this, GenderActivity::class.java)
-//                intent.putExtra("User  Model", userModel) // Pass the UserModel to the next activity
-//                startActivity(intent)
-//                finish()
-//            }
-//        }
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
-
     private fun loadCalendar() {
         val c = Calendar.getInstance()
         val dialog = DatePickerDialog(this, { _, year, month, day ->
-            binding.dateInput.setText("$year/${month + 1}/$day")
+            binding.editDateInput.setText("$year/${month + 1}/$day")
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
         dialog.show()
     }
@@ -144,64 +127,56 @@ class EditProfileActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     private fun uploadImage() {
-//        loadingUtils.show()
+        // If imageUri is selected (new image), upload it
         imageUri?.let { uri ->
             userViewModel.uploadImage(this, uri) { imageUrl ->
                 Log.d("checpoirs", imageUrl.toString())
                 if (imageUrl != null) {
-                    adduser(imageUrl)
+                    Log.d("image url", "here it is $imageUrl")
+                    updateUser(imageUrl)
                 } else {
                     Log.e("Upload Error", "Failed to upload image to Cloudinary")
                 }
             }
+        } ?: run {
+            // If no new image is selected, use the current image URL
+            currentImageUrl?.let { imageUrl ->
+                updateUser(imageUrl)
+            } ?: run {
+                Log.e("Update Error", "No image URL available")
+            }
         }
     }
 
-    private fun adduser(url: String) {
-//        loadingUtils.show()
-        val name = binding.nameInput.text.toString().trim()
-        val username = binding.usernameInput.text.toString().trim()
-        val phone = binding.phoneInput.text.toString().trim()
-        val dob = binding.dateInput.text.toString().trim()
-        val address = binding.addressSpinner.selectedItem.toString()
-        val imageurl = url.toString()
-        // Validate input fields
-        if (name.isEmpty() || username.isEmpty() || phone.isEmpty() || dob.isEmpty() || address.isEmpty()|| imageurl.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+    private fun updateUser(url: String) {
+        Log.d("UpdateProfile1", "I am here")
+        val name = binding.editNameInput.text.toString()
+        val username = binding.editUsernameInput.text.toString().trim()
+        val phone = binding.editPhoneInput.text.toString().trim()
+        val dob = binding.editDateInput.text.toString().trim()
+        val address = binding.editAddressSpinner.selectedItem.toString()
+        val imageUrl = url.toString()
+
+        var updatedData = mutableMapOf<String,Any>()
+
+        updatedData["name"] = name
+        updatedData["username"] = username
+        updatedData["phnNumber"] = phone
+        updatedData["dateOfBirth"] = dob
+        updatedData["address"] = address
+        updatedData["imageurl"] = imageUrl
+        Log.d("UpdateProfile2", "data: $updatedData")
+        userViewModel.updateProfile(userId,updatedData){
+            success,message->
+            Log.d("UpdateProfile3", "Success: $success, Message: $message")
+            if (success){
+                Toast.makeText(this@EditProfileActivity,message, Toast.LENGTH_LONG).show()
+                finish()
+            }else{
+                Toast.makeText(this@EditProfileActivity,message, Toast.LENGTH_LONG).show()
+            }
         }
-        // Update the UserModel with the collected data
-        userModel.name = name
-        userModel.username = username
-        userModel.phnNumber = phone
-        userModel.dateOfBirth = dob
-        userModel.address = address
-        userModel.imageurl = imageurl
 
-        val intent = Intent(this, NavigationActivity::class.java)
-        intent.putExtra("User_Model", userModel) // Pass the UserModel to the next activity
-        startActivity(intent)
 
-//        var model = UserModel(
-//            "",
-//            pname,
-//            pdes, price, url
-//        )
-//
-//        productViewModel.addProduct(model) { success, message ->
-//            if (success) {
-//                Toast.makeText(
-//                    this@AddProductActivity,
-//                    message, Toast.LENGTH_LONG
-//                ).show()
-//                finish()
-//                loadingUtils.dismiss()
-//            } else {
-//                Toast.makeText(
-//                    this@AddProductActivity,
-//                    message, Toast.LENGTH_LONG
-//                ).show()
-//                loadingUtils.dismiss()
-//            }
-//        }
     }
 }
