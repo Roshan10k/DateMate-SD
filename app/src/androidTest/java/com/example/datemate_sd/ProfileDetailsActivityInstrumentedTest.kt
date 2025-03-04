@@ -38,6 +38,16 @@ class ProfileDetailsActivityInstrumentedTest {
             .check(matches(withText("Please add your profile details here")))
     }
 
+    @Test
+    fun testProfileImageEditButtonClick() {
+        onView(withId(R.id.profileImg))
+            .check(matches(isDisplayed()))
+
+        onView(withId(R.id.editBtn))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+    }
 
 
 
