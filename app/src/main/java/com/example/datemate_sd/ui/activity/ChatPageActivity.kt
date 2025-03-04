@@ -13,7 +13,6 @@ import com.example.datemate_sd.repository.MessageRepositoryImpl
 import com.example.datemate_sd.viewmodel.MessageViewModel
 import com.example.datemate_sd.viewmodel.MessageViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 class ChatPageActivity : AppCompatActivity() {
@@ -126,6 +125,8 @@ class ChatPageActivity : AppCompatActivity() {
         viewModel.sendMessage(message)
         binding.inputMessage.text.clear()
     }
+
+
 
 }
 

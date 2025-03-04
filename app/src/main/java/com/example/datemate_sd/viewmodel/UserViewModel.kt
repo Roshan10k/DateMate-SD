@@ -7,7 +7,7 @@ import com.example.datemate_sd.model.NotificationModel
 import com.example.datemate_sd.model.UserModel
 import com.example.datemate_sd.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.auth.User
+
 
 class UserViewModel(private val repo: UserRepository) {
 

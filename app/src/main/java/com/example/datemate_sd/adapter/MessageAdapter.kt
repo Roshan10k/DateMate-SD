@@ -57,14 +57,7 @@ class MessageAdapter(
             binding.timeDisplayTextView.text = formatTime(message.timestamp)
 
 
-            // Show unread message count
-            if (unreadCount > 0) {
-                binding.msgCounterTextview.text = String.format(Locale.getDefault(), "%d", unreadCount)
 
-                binding.msgCounterTextview.visibility = View.VISIBLE
-            } else {
-                binding.msgCounterTextview.visibility = View.GONE
-            }
 
             itemView.setOnClickListener { onMessageClick(message) }
         }

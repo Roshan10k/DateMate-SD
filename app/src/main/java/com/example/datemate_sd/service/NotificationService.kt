@@ -25,9 +25,15 @@ import com.example.datemate_sd.R
 import java.util.Random
 import android.Manifest
 import android.widget.Toast
+import com.example.datemate_sd.network.ApiService
+import com.example.datemate_sd.network.RetrofitClient
 import com.example.datemate_sd.repository.UserRepositoryImpl
 import com.example.datemate_sd.viewmodel.UserViewModel
 import com.google.firebase.firestore.auth.User
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NotificationService : FirebaseMessagingService() {
 
@@ -101,6 +107,31 @@ class NotificationService : FirebaseMessagingService() {
             NotificationManager.IMPORTANCE_HIGH,
         )
         notificationManager.createNotificationChannel(channel)
+    }
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.d("FCM_TOKEN", "New token generated: $token")
+        sendTokenToServer(token)
+    }
+
+    private fun sendTokenToServer(token: String) {
+        val apiService = RetrofitClient.instance.create(ApiService::class.java)
+        val call = apiService.updateFcmToken(token)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    Log.d("FCM_TOKEN", "Token successfully sent to server.")
+                } else {
+                    Log.e("FCM_TOKEN", "Failed to send token: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.e("FCM_TOKEN", "Error sending token: ${t.message}")
+            }
+        })
     }
 
 
