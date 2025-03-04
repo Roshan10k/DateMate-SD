@@ -1,8 +1,5 @@
 package com.example.datemate_sd
 
-import com.example.datemate_sd.repository.AuthRepo
-import com.example.datemate_sd.repository.AuthRepoImpl
-import com.example.datemate_sd.repository.UserRepositoryImpl
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -19,7 +16,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 
-class AuthUnitTest {
+class LoginUnitTest {
     @Mock
     private lateinit var mockAuth: FirebaseAuth
 
@@ -62,3 +59,4 @@ class AuthUnitTest {
         assertEquals("Login Successful", expectedResult)
     }
 }
+

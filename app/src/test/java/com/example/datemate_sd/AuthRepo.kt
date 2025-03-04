@@ -1,4 +1,4 @@
-package com.example.datemate_sd.repository
+package com.example.datemate_sd
 
 interface AuthRepo {
 

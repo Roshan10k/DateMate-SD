@@ -54,6 +54,8 @@ dependencies {
 
 
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.airbnb.android:lottie:6.6.1")
@@ -77,9 +79,14 @@ dependencies {
 
     //unit test dependencies using mockito
 
-    testImplementation("org.mockito:mockito-core:5.6.0")
-    testImplementation("org.mockito:mockito-inline:3.12.4")
-    androidTestImplementation("org.mockito:mockito-kotlin:3.2.0")
+//    testImplementation("org.mockito:mockito-core:5.6.0")
+//    testImplementation("org.mockito:mockito-inline:3.12.4")
+//    androidTestImplementation("org.mockito:mockito-kotlin:3.2.0")
+
+//Indtrumented testing dependiencies
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test:runner:1.2.0")
+    androidTestImplementation("androidx.test:rules:1.2.0")
 
 
 
