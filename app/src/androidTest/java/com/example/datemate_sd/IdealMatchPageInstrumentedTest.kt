@@ -27,9 +27,21 @@ class IdealMatchPageInstrumentedTest {
 
     }
 
+    @Test
+    fun testLoveOptionSelection() {
+        onView(withId(R.id.loveOption))
+            .check(matches(isDisplayed()))
+            .perform(click())
 
+    }
 
+    @Test
+    fun testFriendsOptionSelection() {
+        onView(withId(R.id.friendsOption))
+            .check(matches(isDisplayed()))
+            .perform(click())
 
+    }
 
 
 
