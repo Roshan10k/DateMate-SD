@@ -49,8 +49,17 @@ class ProfileDetailsActivityInstrumentedTest {
 
     }
 
+    @Test
+    fun testNameInputField() {
+        val testName = "John Doe"
 
+        onView(withId(R.id.nameInput))
+            .check(matches(isDisplayed()))
+            .perform(typeText(testName), closeSoftKeyboard())
 
+        onView(withId(R.id.nameInput))
+            .check(matches(withText(testName)))
+    }
 
 
 
