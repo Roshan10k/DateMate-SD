@@ -73,7 +73,17 @@ class ProfileDetailsActivityInstrumentedTest {
             .check(matches(withText(testUsername)))
     }
 
+    @Test
+    fun testPhoneInputField() {
+        val testPhone = "1234567890"
 
+        onView(withId(R.id.phoneInput))
+            .check(matches(isDisplayed()))
+            .perform(typeText(testPhone), closeSoftKeyboard())
+
+        onView(withId(R.id.phoneInput))
+            .check(matches(withText(testPhone)))
+    }
 
 
 
