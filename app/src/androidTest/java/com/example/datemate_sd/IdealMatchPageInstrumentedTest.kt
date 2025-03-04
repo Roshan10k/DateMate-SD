@@ -43,7 +43,13 @@ class IdealMatchPageInstrumentedTest {
 
     }
 
+    @Test
+    fun testBusinessOptionSelection() {
+        onView(withId(R.id.businessOption))
+            .check(matches(isDisplayed()))
+            .perform(click())
 
+    }
 
 
 
