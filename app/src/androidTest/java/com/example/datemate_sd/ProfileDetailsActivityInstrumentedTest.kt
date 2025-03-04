@@ -61,6 +61,17 @@ class ProfileDetailsActivityInstrumentedTest {
             .check(matches(withText(testName)))
     }
 
+    @Test
+    fun testUsernameInputField() {
+        val testUsername = "johndoe123"
+
+        onView(withId(R.id.usernameInput))
+            .check(matches(isDisplayed()))
+            .perform(typeText(testUsername), closeSoftKeyboard())
+
+        onView(withId(R.id.usernameInput))
+            .check(matches(withText(testUsername)))
+    }
 
 
 
