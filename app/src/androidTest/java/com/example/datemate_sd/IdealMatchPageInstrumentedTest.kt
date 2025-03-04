@@ -51,7 +51,12 @@ class IdealMatchPageInstrumentedTest {
 
     }
 
-
+    @Test
+    fun testContinueButtonClick() {
+        onView(withId(R.id.loginButton))
+            .check(matches(isDisplayed()))
+            .perform(click())
+    }
 
 
 }
