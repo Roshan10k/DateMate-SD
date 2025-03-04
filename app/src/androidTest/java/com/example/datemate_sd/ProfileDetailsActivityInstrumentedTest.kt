@@ -19,6 +19,13 @@ class ProfileDetailsActivityInstrumentedTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(ProfileDetailsActivity::class.java)
 
+    @Test
+    fun testBackButtonClick() {
+        onView(withId(R.id.backBtn))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+    }
 
 
 
