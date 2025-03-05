@@ -20,7 +20,6 @@ class MessageFragment : Fragment() {
 
     private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var messageAdapter: MessageAdapter
     private val messages = mutableListOf<MessageModel>()
     private lateinit var auth: FirebaseAuth
@@ -33,9 +32,6 @@ class MessageFragment : Fragment() {
     ): View {
         _binding = FragmentMessageBinding.inflate(inflater, container, false)
         return binding.root
-
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
