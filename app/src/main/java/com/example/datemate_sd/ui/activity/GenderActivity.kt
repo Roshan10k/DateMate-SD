@@ -23,6 +23,7 @@ class GenderActivity : AppCompatActivity() {
         binding = ActivityGenderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         // Retrieve the UserModel from the intent
         val userModel = intent.getParcelableExtra<UserModel>("User_Model") ?: UserModel()
 
@@ -33,6 +34,7 @@ class GenderActivity : AppCompatActivity() {
         // Handle Male selection
         binding.imageMale.setOnClickListener {
             selectGender("Male", binding.imageMale, binding.imageFemale)
+
         }
 
         // Handle Female selection

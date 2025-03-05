@@ -20,7 +20,6 @@ class MessageFragment : Fragment() {
 
     private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var messageAdapter: MessageAdapter
     private val messages = mutableListOf<MessageModel>()
     private lateinit var auth: FirebaseAuth

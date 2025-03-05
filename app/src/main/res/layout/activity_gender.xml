@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="@color/background"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.activity.GenderActivity">
 
-    <ImageView
-        android:id="@+id/backArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+    <!--    <ImageView-->
+    <!--        android:id="@+id/backArrow"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="12dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />-->
 
     <TextView
         android:id="@+id/textTitle"
@@ -24,12 +24,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="28dp"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:textColor="@color/white"
         android:text="Select Gender"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backArrow" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/subTitle"
@@ -66,9 +66,9 @@
         android:layout_marginStart="132dp"
         android:layout_marginTop="88dp"
         android:background="@drawable/button_bg"
+        android:src="@drawable/baseline_male_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subTitle"
-        android:src="@drawable/baseline_male_24" />
+        app:layout_constraintTop_toBottomOf="@+id/subTitle" />
 
     <ImageView
         android:id="@+id/imageFemale"
@@ -77,9 +77,9 @@
         android:layout_marginStart="132dp"
         android:layout_marginTop="88dp"
         android:background="@drawable/button_bg"
+        android:src="@drawable/baseline_female_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:src="@drawable/baseline_female_24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"

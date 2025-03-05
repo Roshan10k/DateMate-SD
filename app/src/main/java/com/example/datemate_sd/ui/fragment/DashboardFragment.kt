@@ -82,10 +82,8 @@ class DashboardFragment : Fragment() {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
                 return@addOnCompleteListener
             }
-
             // Get new FCM registration token
             val token = task.result
-
             // Log the token
             Log.d(TAG, "FCM Token: $token")
         }

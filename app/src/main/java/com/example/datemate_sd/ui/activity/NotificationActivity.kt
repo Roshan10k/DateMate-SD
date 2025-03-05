@@ -34,7 +34,7 @@ class NotificationActivity : AppCompatActivity() {
         userViewModel = UserViewModel(repo)
 
         // Initialize adapter with an empty list
-        notificationAdapter = NotificationAdapter(this, emptyList())
+        notificationAdapter = NotificationAdapter(this, emptyList(),userViewModel)
 
         binding.recyclerViewNotifications.apply {
             adapter = notificationAdapter
@@ -51,8 +51,7 @@ class NotificationActivity : AppCompatActivity() {
         userViewModel.getNotificationsForUser(userId)
 
         binding.backButton.setOnClickListener{
-            var intent = Intent(this@NotificationActivity, DashboardFragment::class.java)
-            startActivity(intent)
+            finish()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

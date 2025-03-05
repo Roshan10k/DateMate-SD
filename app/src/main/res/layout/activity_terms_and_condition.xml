@@ -8,66 +8,54 @@
 
     tools:context=".ui.activity.TermsAndConditionActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background">
+
 
         <!-- Back Arrow -->
-        <ImageView
-            android:id="@+id/backArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_alignParentStart="true"
-            android:contentDescription="Back Arrow"
-            android:src="@drawable/baseline_arrow_back_ios_24" />
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/termsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="56dp"
-            android:text="Terms and Condition"
-            android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+    <!-- Title -->
 
-        <!-- Scrollable Content -->
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/termsTitle"
-            android:layout_above="@id/acceptButton">
 
-            <TextView
-                android:id="@+id/termsContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="4dp"
-                android:text="By using DateMate, you agree to the following terms and conditions: You must be at least 18 years old to use the app, and you are responsible for maintaining the confidentiality of your account and all activities under it. You agree not to harass, bully, harm, or impersonate others, use the app for illegal purposes, or share false information. Your privacy is important to us, and our Privacy Policy outlines how we collect, use, and protect your data. While you retain ownership of the content you post, you grant DateMate a license to use, display, and share it within the app. We reserve the right to suspend or terminate your account if you violate these terms or engage in inappropriate behavior. Use DateMate responsibly and respectfully to create a positive experience for all users."
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
-        </ScrollView>
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Back Arrow"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Accept Button -->
-        <Button
-            android:id="@+id/acceptButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/gradient"
-            android:text="Accept"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/termsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="85dp"
+        android:text="Terms and Condition"
+        android:textColor="#FFFFFF"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/termsContent"
+        android:layout_width="407dp"
+        android:layout_height="465dp"
+        android:layout_marginTop="16dp"
+        android:lineSpacingExtra="4dp"
+        android:text="By using DateMate, you agree to the following terms and conditions: You must be at least 18 years old to use the app, and you are responsible for maintaining the confidentiality of your account and all activities under it. You agree not to harass, bully, harm, or impersonate others, use the app for illegal purposes, or share false information. Your privacy is important to us, and our Privacy Policy outlines how we collect, use, and protect your data. While you retain ownership of the content you post, you grant DateMate a license to use, display, and share it within the app. We reserve the right to suspend or terminate your account if you violate these terms or engage in inappropriate behavior. Use DateMate responsibly and respectfully to create a positive experience for all users."
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termsTitle" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

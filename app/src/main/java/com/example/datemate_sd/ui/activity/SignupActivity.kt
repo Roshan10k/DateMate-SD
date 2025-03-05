@@ -10,8 +10,8 @@ import com.example.datemate_sd.repository.UserRepositoryImpl
 import com.example.datemate_sd.viewmodel.UserViewModel
 
 class SignupActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySignupBinding
-    lateinit var userViewModel: UserViewModel
+    private lateinit var binding: ActivitySignupBinding
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +29,33 @@ class SignupActivity : AppCompatActivity() {
         binding.SignupBtn.setOnClickListener {
             val email = binding.EmailView.text.toString().trim()
             val password = binding.passwordView.text.toString().trim()
+            val confirmPassword = binding.passwordView2.text.toString().trim() // Add confirm password field
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
+            // Input validation
+            if (email.isEmpty()) {
+                showToast("Email cannot be empty")
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                showToast("Password cannot be empty")
+                return@setOnClickListener
+            }
+
+
+
+            if (confirmPassword.isEmpty()) {
+                showToast("Confirm password cannot be empty")
+                return@setOnClickListener
+            }
+
+
+            if (password != confirmPassword) {
+                showToast("Passwords do not match")
+                return@setOnClickListener
+            }
+            if (password.length < 6) {
+                showToast("Password must be at least 6 characters long")
                 return@setOnClickListener
             }
 
@@ -39,24 +63,18 @@ class SignupActivity : AppCompatActivity() {
                 if (success) {
                     val userModel = UserModel(userId, email, password)
 
-                    
-//                    userViewModel.addUserToDatabase(userId, userModel) { isSuccess, msg ->
-//                        if (isSuccess) {
-//                            Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show()
-//
-//
-                            val intent = Intent(this, ProfileDetailsActivity::class.java)
-                            intent.putExtra("User_Model", userModel)
-                            startActivity(intent)
-                            finish()
-//                        } else {
-//                            Toast.makeText(this, "Failed to save user details", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
+                    val intent = Intent(this, ProfileDetailsActivity::class.java)
+                    intent.putExtra("User_Model", userModel)
+                    startActivity(intent)
+                    finish()
                 } else {
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                    showToast(message)
                 }
             }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
