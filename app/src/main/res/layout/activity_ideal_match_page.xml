@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".ui.activity.IdealMatchPage">
 
     <!-- Back Arrow -->
-    <ImageView
-        android:id="@+id/backArrow"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_margin="16dp"
-        android:contentDescription="Back"
-        android:src="@drawable/baseline_arrow_back_ios_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <!-- Title -->
 
@@ -37,7 +28,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backArrow" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/subtitle"
@@ -59,8 +50,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:orientation="horizontal"
         android:background="@drawable/button_bg"
+        android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +60,9 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/baseline_heart"
-android:background="@drawable/i_m_gradient"/>
+            android:background="@drawable/i_m_gradient"
+            android:src="@drawable/baseline_heart" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +78,7 @@ android:background="@drawable/i_m_gradient"/>
                 android:textStyle="bold" />
 
             <TextView
-                 android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="You’re not on here to play around"
                 android:textColor="#B0B0B0"
@@ -100,9 +92,9 @@ android:background="@drawable/i_m_gradient"/>
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@drawable/button_bg"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="@drawable/button_bg"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,8 +103,8 @@ android:background="@drawable/i_m_gradient"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/baseline_people_alt_24"
-            android:background="@drawable/i_m_gradient" />
+            android:background="@drawable/i_m_gradient"
+            android:src="@drawable/baseline_people_alt_24" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -143,8 +135,8 @@ android:background="@drawable/i_m_gradient"/>
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal"
         android:background="@drawable/button_bg"
+        android:orientation="horizontal"
 
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -154,8 +146,8 @@ android:background="@drawable/i_m_gradient"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/baseline_business_center_24"
-android:background="@drawable/i_m_gradient"/>
+            android:background="@drawable/i_m_gradient"
+            android:src="@drawable/baseline_business_center_24" />
 
         <LinearLayout
             android:layout_width="wrap_content"

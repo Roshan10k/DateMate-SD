@@ -3,6 +3,7 @@ package com.example.datemate_sd.viewmodel
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
+import com.example.datemate_sd.model.NotificationModel
 import com.example.datemate_sd.model.UserModel
 import com.example.datemate_sd.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
@@ -22,7 +23,11 @@ class UserViewModel(private val repo: UserRepository) {
         repo.forgetPassword(email, callback)
     }
 
-    fun addUserToDatabase(userID: String, userModel: UserModel, callback: (Boolean, String) -> Unit) {
+    fun addUserToDatabase(
+        userID: String,
+        userModel: UserModel,
+        callback: (Boolean, String) -> Unit
+    ) {
         repo.addUserToDatabase(userID, userModel, callback)
     }
 
@@ -30,22 +35,17 @@ class UserViewModel(private val repo: UserRepository) {
         repo.logout(callback)
     }
 
-    fun editProfile(userId: String, data: MutableMap<String, Any>, callback: (Boolean, String) -> Unit) {
-        repo.editProfile(userId, data, callback)
-    }
-
     fun getCurrentUser(): FirebaseUser? {
-        return repo.getCurrentUSer()
+        return repo.getCurrentUser()
     }
 
     var _users = MutableLiveData<UserModel>()
-    var users  = MutableLiveData<UserModel>()
+    var users = MutableLiveData<UserModel>()
         get() = _users
 
     fun getUserFromDatabase(userId: String) {
-        repo.getUserFromDatabase(userId){
-            users,success,message->
-            if (success){
+        repo.getUserFromDatabase(userId) { users, success, message ->
+            if (success) {
                 _users.value = users
             }
         }
@@ -60,11 +60,10 @@ class UserViewModel(private val repo: UserRepository) {
     var loading = MutableLiveData<Boolean>()
         get() = _loading
 
-    fun getAllUserFunc(){
+    fun getAllUserFunc() {
         _loading.value = true
-        repo.getAllUsers{
-                allProducts,success,message->
-            if (success){
+        repo.getAllUsers { allProducts, success, message ->
+            if (success) {
                 _getAllUsers.value = allProducts
                 _loading.value = false
             }
@@ -72,8 +71,47 @@ class UserViewModel(private val repo: UserRepository) {
     }
 
 
-    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit){
+    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit) {
         repo.uploadImage(context, imageUri, callback)
     }
+
+    fun saveUserFCMToken() {
+        repo.saveUserFCMToken()
+    }
+
+    fun getUserFCMToken(userId: String, callback: (String?) -> Unit) {
+        repo.getUserFCMToken(userId, callback)
+    }
+
+    fun saveNotificationToDatabase(userID: String, likerId: String,message : String,callback: (Boolean, String) -> Unit){
+        repo.saveNotificationToDatabase(userID,likerId,message,callback)
+    }
+
+    // Notification-related functions
+    var _notifications = MutableLiveData<List<NotificationModel>>()
+    var notifications = MutableLiveData<List<NotificationModel>>()
+        get() = _notifications
+
+    fun getNotificationsForUser(userId: String) {
+        repo.getNotificationForUser(userId) { notifications, success, message ->
+            if (success) {
+                _notifications.value = notifications
+            }
+        }
+    }
+
+    fun saveLikes(userID: String,likerId: String, callback: (Boolean, String) -> Unit){
+        repo.saveLikes(userID,likerId,callback)
+    }
+
+    fun checkMutualLikes(userID: String,likerId: String,callback: (Boolean, String) -> Unit){
+        repo.checkMutualLikes(userID,likerId,callback)
+    }
+
+    fun updateProfile(userId: String, data : MutableMap<String, Any> ,callback: (Boolean, String) -> Unit){
+        repo.updateProfile(userId,data,callback)
+    }
+
+
 
 }

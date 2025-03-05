@@ -26,6 +26,8 @@ class IdealMatchPage : AppCompatActivity() {
         binding = ActivityIdealMatchPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         // Initialize repository
         userViewModel = UserViewModel(UserRepositoryImpl())
 
@@ -34,6 +36,8 @@ class IdealMatchPage : AppCompatActivity() {
 
         // Set up click listeners for options
         resetOptionsBackground()
+
+
         binding.loveOption.setBackgroundResource(R.drawable.gradient)
         selectedOption = "Love"
 

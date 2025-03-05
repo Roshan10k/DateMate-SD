@@ -1,5 +1,6 @@
 package com.example.datemate_sd.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import com.example.datemate_sd.adapter.ChatAdapter
 import com.example.datemate_sd.databinding.ActivityChatPageBinding
 import com.example.datemate_sd.model.MessageModel
 import com.example.datemate_sd.repository.MessageRepositoryImpl
+import com.example.datemate_sd.ui.fragment.MessageFragment
 import com.example.datemate_sd.viewmodel.MessageViewModel
 import com.example.datemate_sd.viewmodel.MessageViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
@@ -82,6 +84,11 @@ class ChatPageActivity : AppCompatActivity() {
         viewModel.loadMessages(senderId!!, receiverId!!)
 
         viewModel.markMessagesAsRead(senderId!!, receiverId!!)
+
+        binding.backArrow.setOnClickListener {
+            finish()
+        }
+
 
     }
 
