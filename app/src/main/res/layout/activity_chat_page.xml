@@ -26,7 +26,6 @@
         android:layout_height="63dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
-        android:drawableRight="@drawable/baseline_call_24"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
@@ -104,18 +103,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
-    <ImageView
-        android:id="@+id/imageCamera"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="268dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/inputMessage"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="@+id/inputMessage"
-        app:srcCompat="@drawable/baseline_photo_camera_24" />
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"

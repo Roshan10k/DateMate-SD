@@ -67,11 +67,7 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         binding.AddressSpinner.adapter = cityAdapter
         binding.AddressSpinner.onItemSelectedListener = this
 
-        // Set up the back button to navigate to the signup screen
-        binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
-            finish()
-        }
+
 
         // Set up the date input click listener
         binding.DateInput.setOnClickListener { loadCalendar() }
@@ -115,9 +111,9 @@ class ProfileDetailsActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
     private fun adduser(url: String) {
 //        loadingUtils.show()
-        val name = binding.nameTextView.text.toString().trim()
-        val username = binding.usernameTextView.text.toString().trim()
-        val phone = binding.phoneTextView.text.toString().trim()
+        val name = binding.NameInput.text.toString().trim()
+        val username = binding.UsernameInput.text.toString().trim()
+        val phone = binding.PhoneInput.text.toString().trim()
         val dob = binding.DateInput.text.toString().trim()
         val address = binding.AddressSpinner.selectedItem.toString()
         val imageurl = url.toString()

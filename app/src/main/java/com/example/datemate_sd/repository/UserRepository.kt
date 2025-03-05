@@ -6,7 +6,7 @@ import com.example.datemate_sd.model.NotificationModel
 import com.example.datemate_sd.model.UserModel
 import com.google.firebase.auth.FirebaseUser
 
-interface UserRepository {
+interface  UserRepository {
 
     fun login( email:String,password:String,callback:(Boolean,String) ->Unit)
 

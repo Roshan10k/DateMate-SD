@@ -8,30 +8,30 @@
     android:background="@color/background"
     tools:context=".ui.activity.ProfileDetailsActivity">
 
-    <ImageButton
-        android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/backBtn"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:background="@color/background"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
 
-        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+    <!--        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />-->
 
     <TextView
         android:id="@+id/addProfileHead1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="Add Profile Details"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/addProfileHead2"
@@ -99,8 +99,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="Username"
-        android:textSize="15dp"
         android:textColor="@color/endpink"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NameInput" />
 
@@ -108,8 +108,8 @@
         android:id="@+id/UsernameInput"
         android:layout_width="347dp"
         android:layout_height="47dp"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/custum_input"
         android:ems="10"
         android:inputType="text"
@@ -125,8 +125,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="Phone Number"
-        android:textSize="15dp"
         android:textColor="@color/endpink"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UsernameInput" />
 
@@ -134,8 +134,8 @@
         android:id="@+id/PhoneInput"
         android:layout_width="347dp"
         android:layout_height="47dp"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/custum_input"
         android:ems="10"
         android:inputType="number"
@@ -151,8 +151,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="Date of Birth"
-        android:textSize="15dp"
         android:textColor="@color/endpink"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PhoneInput" />
 
@@ -160,8 +160,8 @@
         android:id="@+id/DateInput"
         android:layout_width="347dp"
         android:layout_height="47dp"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/custum_input"
         android:ems="10"
         android:inputType="date"
@@ -177,8 +177,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="Address"
-        android:textSize="15dp"
         android:textColor="@color/endpink"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DateInput" />
 
@@ -187,8 +187,8 @@
         android:id="@+id/AddressSpinner"
         android:layout_width="347dp"
         android:layout_height="47dp"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/custum_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressTextview" />

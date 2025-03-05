@@ -40,7 +40,7 @@ class MessageAdapter(
         val chatPartnerId = if (message.senderId == currentUserId) message.receiverId else message.senderId
         val unreadCount = unreadCounts[chatPartnerId] ?: 0
 
-        holder.bind(message, chatPartnerId, unreadCount)
+        holder.bind(message, chatPartnerId)
     }
 
     override fun getItemCount(): Int = messages.size
@@ -48,7 +48,7 @@ class MessageAdapter(
     inner class MessageViewHolder(private val binding: SampleMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(message: MessageModel, chatPartnerId: String, unreadCount: Int) {
+        fun bind(message: MessageModel, chatPartnerId: String) {
             // Fetch chat partner's name (if not cached)
             val userName = userNamesCache[chatPartnerId] ?: fetchUserName(chatPartnerId)
 
@@ -57,14 +57,7 @@ class MessageAdapter(
             binding.timeDisplayTextView.text = formatTime(message.timestamp)
 
 
-            // Show unread message count
-            if (unreadCount > 0) {
-                binding.msgCounterTextview.text = String.format(Locale.getDefault(), "%d", unreadCount)
 
-                binding.msgCounterTextview.visibility = View.VISIBLE
-            } else {
-                binding.msgCounterTextview.visibility = View.GONE
-            }
 
             itemView.setOnClickListener { onMessageClick(message) }
         }

@@ -58,6 +58,7 @@ class UploadImage : AppCompatActivity() {
             imageUtils.launchGallery(this)
         }
 
+
         binding.addImage2.setOnClickListener {
             selectedImageView = binding.addImage2
             imageUtils.launchGallery(this)
