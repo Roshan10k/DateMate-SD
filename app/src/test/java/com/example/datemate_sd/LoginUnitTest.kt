@@ -37,25 +37,21 @@ class LoginUnitTest {
     fun testLogin_Successful() {
         val email = "test@example.com"
         val password = "testPassword"
-        var expectedResult = "Initial Value" // Define the initial value
+        var expectedResult = "Initial Value"
 
-        // Mocking task to simulate successful registration
         `when`(mockTask.isSuccessful).thenReturn(true)
         `when`(mockAuth.signInWithEmailAndPassword(any(), any()))
             .thenReturn(mockTask)
 
-        // Define a callback that updates the expectedResult
         val callback = { success: Boolean, message: String? ->
             expectedResult = message ?: "Callback message is null"
         }
 
-        // Call the function under test
         authRepo.login(email, password, callback)
 
         verify(mockTask).addOnCompleteListener(captor.capture())
         captor.value.onComplete(mockTask)
 
-        // Assert the result
         assertEquals("Login Successful", expectedResult)
     }
 }

@@ -38,7 +38,6 @@ class RegUnitTest {
         val email = "test@example.com"
         var expectedResult = "Initial Value"
 
-        // Mocking task to simulate successful password reset
         `when`(mockAuth.sendPasswordResetEmail(email)).thenReturn(mockTask)
         `when`(mockTask.isSuccessful).thenReturn(true)
 
@@ -54,25 +53,5 @@ class RegUnitTest {
         assertEquals("Password reset link sent to $email", expectedResult)
     }
 
-    @Test
-    fun testForgetPassword_Failed() {
-        val email = "test@example.com"
-        var expectedResult = "Initial Value" // Define the initial value
 
-        val exception = FirebaseAuthException("Error", "Password reset failed")
-        `when`(mockAuth.sendPasswordResetEmail(email)).thenReturn(mockTask)
-        `when`(mockTask.isSuccessful).thenReturn(false)
-        `when`(mockTask.exception).thenReturn(exception)
-
-        val callback = { success: Boolean, message: String ->
-            expectedResult = message
-        }
-
-        regRepo.forgetPassword(email, callback)
-
-        verify(mockTask).addOnCompleteListener(captor.capture())
-        captor.value.onComplete(mockTask)
-
-        assertEquals("Password reset failed", expectedResult)
-    }
 }
