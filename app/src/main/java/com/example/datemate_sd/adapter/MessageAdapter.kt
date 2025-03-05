@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.datemate_sd.R
 import com.example.datemate_sd.databinding.SampleMessageBinding
 import com.example.datemate_sd.model.MessageModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import java.util.Date
 import java.util.Locale
 
@@ -19,6 +21,7 @@ class MessageAdapter(
 ) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     private val userNamesCache = mutableMapOf<String, String>()
+    private val userImagesCache = mutableMapOf<String, String>()
     private val auth = FirebaseAuth.getInstance()
 
     fun updateMessages(newMessages: List<MessageModel>, newUnreadCounts: Map<String, Int>) {
@@ -49,15 +52,20 @@ class MessageAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(message: MessageModel, chatPartnerId: String) {
-            // Fetch chat partner's name (if not cached)
+            // Fetch chat partner's name and image URL (if not cached)
             val userName = userNamesCache[chatPartnerId] ?: fetchUserName(chatPartnerId)
+            val imageUrl = userImagesCache[chatPartnerId] ?: fetchUserImage(chatPartnerId)
 
             binding.searchNameDisplay.text = userName
             binding.msgDisplayTextView.text = message.message
             binding.timeDisplayTextView.text = formatTime(message.timestamp)
 
-
-
+            // Display image if available
+            if (imageUrl.isNotEmpty()) {
+                Picasso.get().load(imageUrl).into(binding.searchImage)
+            } else {
+                binding.searchImage.setImageResource(R.drawable.sampleperson1) // Placeholder image
+            }
 
             itemView.setOnClickListener { onMessageClick(message) }
         }
@@ -83,6 +91,24 @@ class MessageAdapter(
                 }
             })
             return "Loading..." // Placeholder until the name is fetched
+        }
+
+        private fun fetchUserImage(userId: String): String {
+            val userRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val imageUrl = snapshot.child("imageurl").getValue(String::class.java)
+                    if (imageUrl != null) {
+                        userImagesCache[userId] = imageUrl // Cache the image URL
+                        notifyDataSetChanged() // Refresh the adapter when image URL is fetched
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle the error if needed
+                }
+            })
+            return "" // Placeholder until the image URL is fetched
         }
     }
 }

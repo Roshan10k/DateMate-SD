@@ -69,12 +69,14 @@ class MessageFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userName = snapshot.child("name").getValue(String::class.java)
                     val userImage = snapshot.child("imageurl").getValue(String::class.java)
+                    val fcmToken = snapshot.child("fcmToken").getValue(String::class.java)
 
 
                     val intent = Intent(requireContext(), ChatPageActivity::class.java).apply {
                         putExtra("receiverId", chatPartnerId)
                         putExtra("userName", userName)
                         putExtra("userImage", userImage)
+                        putExtra("fcm",fcmToken)
                     }
                     startActivity(intent)
 
